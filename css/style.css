@@ -1,0 +1,42 @@
+body{
+  padding-top: 50px;
+}
+img {
+	max-width: 200px;
+}
+.navbar {
+  border-radius: 0;
+  border: 0;
+}
+.icon-17:hover, .icon-13:hover, .icon:hover{
+  border-radius: 100%;
+  color: #0e1925;
+  fill: #0e1925;
+  -webkit-transform: scale(1.25);
+      -ms-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: background-color 0.5s, -webkit-transform 0.5s ease-out;
+          transition: background-color 0.5s, transform 0.5s ease-out;
+}
+.icon {
+	fill : #2691d9;
+
+}
+.icon:hover {
+	fill : #819090;
+}
+.icon-13 {
+  color: #26d991;
+  fill: #26d991;
+}
+.icon-13:hover {
+  background: #26d991;
+}
+.icon-17 {
+  color: #2691d9;
+  fill: #2691d9;
+}
+.icon-17:hover {
+  background: #2691d9;
+}
+
