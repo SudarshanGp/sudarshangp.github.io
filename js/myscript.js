@@ -7,7 +7,9 @@ $(document).ready(function(){
 	// increment();
 
 });
-
+$('.carousel').carousel({
+  interval: false
+});
 
 function setupFirebase() // gets json information from firebase
  {
