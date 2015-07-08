@@ -7,7 +7,7 @@ body{
   position: relative;
   background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=4ea6ca00&noise=626262&density=69&opacity=39);
   background-color: #154152;
-  color:rgb(2, 36, 2);
+  color:rgb(255, 255, 255);
 }
 /*header .container {
     padding-top: 100px;
