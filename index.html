@@ -12,82 +12,70 @@
       <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
+    <script type="text/javascript" src="js/prefixfree.min.js"></script> <!-- taking care of browser prefixes --> 
 </head>
 
 <body>
+  <header id="featured">
 
-  <header>
+     <nav id="navigator" class="navbar navbar-default navbar-fixed-top" role="navigation">
+       <div  class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapser">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
 
-   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-     <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+        </div><!-- navbar-header -->
+        <div  class="collapse navbar-collapse" id="collapser">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="#featured">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!-- collapse -->
+        </div><!--container -->
+      </nav>
+      <div class="container information">
+              <!-- <div class="row"> -->
+                  <!-- <div class="col-lg-12"> -->
+                                   <img id="me" class="img-circle" src="images/Sudarshan1.jpg" alt="Photo of Sudarshan Govindaprasad">
+                      <div id="featured"class="intro-text">
 
-<!--         <a class="navbar-brand" href="#featured">
-        <i class="fa fa-play-circle"></i>Sudarshan <span class="subhead">Govindaprasad</span></a> -->
-      </div><!-- navbar-header -->
-      <div class="collapse navbar-collapse" id="collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#featured">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div><!-- collapse -->
-      </div><!--container -->
-    </nav>
-   <div class="container information">
-            <!-- <div class="row"> -->
-                <!-- <div class="col-lg-12"> -->
-                                 <img class="img-circle" src="images/Sudarshan1.jpg" alt="Photo of Sudarshan Govindaprasad">
-                    <div class="intro-text">
-
-                        <span class="name">
-                        Sudarshan Govindaprasd </span>
-
-                        <!-- <hr class="star-light"> -->
-                <!--         <span class="skills">Full Stack Developer</span> -->
-                    </div><!-- intro text -->
-
-                <!-- </div> -->
-
-            <!-- </div> -->
-         
-        </div>
-   <div class="sep"></div>
+                          <span class="name">
+                          Sudarshan Govindaprasd </span>
+                          <span class="skills">Full Stack Developer</span>
+                      </div><!-- intro text -->
+      </div>
+<!--            <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a> -->
+      <div class="sep_main"></div>
+      <div id ="featured" class="topper"></div>
   </header>
-
+<div class="sep"></div>
   <div class="main">
       <div class="page" id="about">
         <div class="content container">
-          <h2>About Me</h2>      
-<!--           <div class="col-sm-3">
-             <img class="img-circle" src="images/Sudarshan1.jpg" alt="Photo of Sudarshan Govindaprasad">
-          </div> -->
-<!--           <div class="col-sm-9"> -->
-
+          <h2>About Me</h2>     
             <p>I am a computer Science major at the University of Illinois at Urbana-Champaign.</p>
             <p>My interests lie in Security, Networking, Data Vizualization, Machine Learning, NLP.</p>
           </div>
         </div><!-- content container -->
       </div><!-- about page -->
-                       <!--   <hr class="star-light"> -->
-        <div class="sep"></div>
+      <div class="sep"></div>
       <!-- come up with some sort of vizualiation for my strengths from stength finder -->
       <div class="page" id="projects">
         <div class="content container">
           <h2>Projects</h2>
-            <article class="project">
+            <article class="project" id ="project">
               <h3>SportsHub</h3> <!-- Add Github Link to it -->
               <h4>Your Solution To Sports</h4>
-              <p>
-              We decided to create a simple Chrome Extension that allows you to view live sports data through a Chrome Extension. We focused on making the Extension simple and easy to use. Using a python script, we upload live data to Firebase which then updates the chrome extension.</p>
+              <p id="project_para">
+              We decided to create a simple Chrome Extension that allows you to view live sports data through a Chrome Extension. We focus  ed on making the Extension simple and easy to use. Using a python script, we upload live data to Firebase which then updates the chrome extension.</p>
             </article>
 
             <article class="project">
@@ -105,12 +93,12 @@
    <div class="sep"></div>
       <div class="page" id="contact">
         <div class ="content container">
-          <div class="row">
+          <div class="row" id="icon_set">
             <h2>Contact</h2>
-              <div class ="col-xs-3">
+              <div class ="col-md-3 col-xs-6">
                 <a href="mailto:sudarshangpd@gmail.com" target="_blank">
                   <svg class="icon" version="1.0" xmlns="http://www.w3.org/2000/svg"
-                   width="100" height="100" viewBox="0 0 500.000000 500"
+                   width="100" height="100" viewBox="0 0 500.000000 500" align="center"
                    preserveAspectRatio="xMidYMid meet">
                     <g transform="translate(50.000000,393.000000) scale(0.080000,-0.080000)"
                     stroke="none">
@@ -131,22 +119,22 @@
                   </svg>
                 </a>
               </div>        
-              <div class ="col-xs-3">
+              <div class ="col-md-3 col-xs-6">
                 <a href="https://www.linkedin.com/in/sgovindaprasad" class="icon-17 linkedin" title="LinkedIn">
-                  <svg viewBox="0 0 512 512" width = "100" height="100"><path d="M186.4 142.4c0 19-15.3 34.5-34.2 34.5 -18.9 0-34.2-15.4-34.2-34.5 0-19 15.3-34.5 34.2-34.5C171.1 107.9 186.4 123.4 186.4 142.4zM181.4 201.3h-57.8V388.1h57.8V201.3zM273.8 201.3h-55.4V388.1h55.4c0 0 0-69.3 0-98 0-26.3 12.1-41.9 35.2-41.9 21.3 0 31.5 15 31.5 41.9 0 26.9 0 98 0 98h57.5c0 0 0-68.2 0-118.3 0-50-28.3-74.2-68-74.2 -39.6 0-56.3 30.9-56.3 30.9v-25.2H273.8z"/>
+                  <svg viewBox="0 0 512 512" width = "100" height="100" align="center"><path d="M186.4 142.4c0 19-15.3 34.5-34.2 34.5 -18.9 0-34.2-15.4-34.2-34.5 0-19 15.3-34.5 34.2-34.5C171.1 107.9 186.4 123.4 186.4 142.4zM181.4 201.3h-57.8V388.1h57.8V201.3zM273.8 201.3h-55.4V388.1h55.4c0 0 0-69.3 0-98 0-26.3 12.1-41.9 35.2-41.9 21.3 0 31.5 15 31.5 41.9 0 26.9 0 98 0 98h57.5c0 0 0-68.2 0-118.3 0-50-28.3-74.2-68-74.2 -39.6 0-56.3 30.9-56.3 30.9v-25.2H273.8z"/>
                   </svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]-->
                 </a>
               </div>
-              <div class ="col-xs-3">
+              <div class ="col-md-3 col-xs-6">
                 <a href="https://github.com/SudarshanGp/" class="icon-13 github" title="GitHub">
-                  <svg viewBox="0 0 512 512" width = "100" height="100"><path d="M256 70.7c-102.6 0-185.9 83.2-185.9 185.9 0 82.1 53.3 151.8 127.1 176.4 9.3 1.7 12.3-4 12.3-8.9V389.4c-51.7 11.3-62.5-21.9-62.5-21.9 -8.4-21.5-20.6-27.2-20.6-27.2 -16.9-11.5 1.3-11.3 1.3-11.3 18.7 1.3 28.5 19.2 28.5 19.2 16.6 28.4 43.5 20.2 54.1 15.4 1.7-12 6.5-20.2 11.8-24.9 -41.3-4.7-84.7-20.6-84.7-91.9 0-20.3 7.3-36.9 19.2-49.9 -1.9-4.7-8.3-23.6 1.8-49.2 0 0 15.6-5 51.1 19.1 14.8-4.1 30.7-6.2 46.5-6.3 15.8 0.1 31.7 2.1 46.6 6.3 35.5-24 51.1-19.1 51.1-19.1 10.1 25.6 3.8 44.5 1.8 49.2 11.9 13 19.1 29.6 19.1 49.9 0 71.4-43.5 87.1-84.9 91.7 6.7 5.8 12.8 17.1 12.8 34.4 0 24.9 0 44.9 0 51 0 4.9 3 10.7 12.4 8.9 73.8-24.6 127-94.3 127-176.4C441.9 153.9 358.6 70.7 256 70.7z"/>
+                  <svg viewBox="0 0 512 512" width = "100" height="100" align="center"><path d="M256 70.7c-102.6 0-185.9 83.2-185.9 185.9 0 82.1 53.3 151.8 127.1 176.4 9.3 1.7 12.3-4 12.3-8.9V389.4c-51.7 11.3-62.5-21.9-62.5-21.9 -8.4-21.5-20.6-27.2-20.6-27.2 -16.9-11.5 1.3-11.3 1.3-11.3 18.7 1.3 28.5 19.2 28.5 19.2 16.6 28.4 43.5 20.2 54.1 15.4 1.7-12 6.5-20.2 11.8-24.9 -41.3-4.7-84.7-20.6-84.7-91.9 0-20.3 7.3-36.9 19.2-49.9 -1.9-4.7-8.3-23.6 1.8-49.2 0 0 15.6-5 51.1 19.1 14.8-4.1 30.7-6.2 46.5-6.3 15.8 0.1 31.7 2.1 46.6 6.3 35.5-24 51.1-19.1 51.1-19.1 10.1 25.6 3.8 44.5 1.8 49.2 11.9 13 19.1 29.6 19.1 49.9 0 71.4-43.5 87.1-84.9 91.7 6.7 5.8 12.8 17.1 12.8 34.4 0 24.9 0 44.9 0 51 0 4.9 3 10.7 12.4 8.9 73.8-24.6 127-94.3 127-176.4C441.9 153.9 358.6 70.7 256 70.7z"/>
                   </svg><!--[if lt IE 9]><em>GitHub</em><![endif]-->
                 </a>
               </div>
-              <div class = "col-xs-3">
+              <div class = "col-md-3 col-xs-6">
                 <a href="resume.pdf" target="_blank">
                   <svg class="icon" version="1.0" xmlns="http://www.w3.org/2000/svg"
-                   width="70.000000pt" height="70.000000pt" viewBox="0 0 500.000000 500.000000"
+                   width="70.000000pt" height="70.000000pt" viewBox="0 0 500.000000 500.000000" align="center"
                    preserveAspectRatio="xMidYMid meet">
                     <g transform="translate(40.000000,400.000000) scale(0.070000,-0.070000)"
                     stroke="none">
