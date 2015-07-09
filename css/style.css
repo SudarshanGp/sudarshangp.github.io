@@ -9,15 +9,9 @@ body{
   background-color: #154152;
   color:rgb(255, 255, 255);
 }
-/*header .container {
-    padding-top: 100px;
-    padding-bottom: 50px;
-}*/
 .sep_main{
   height: 115px;
   width: 100%;
-  /*background-color: #2691d9;*/
-  /*outline-offset:;*/
 }
 .sep{
   height: 5px;
@@ -25,14 +19,7 @@ body{
   background-color: black;
   /*outline-offset:;*/
 }
-/*.topper {
-  height: 0px;
-  width: 0%;
 
-}*/
-/*header{
-  top:10px;
-}*/
 header  .information img {
     display: block;
     margin: 0 auto 20px;
@@ -120,7 +107,7 @@ img {
  .navbar-default .navbar-nav .active a {
   font-weight: 700;
   /*color: #EEC856;*/
-  color: #2691d9;;
+  color: #2691d9;
   background: transparent;
   /*border-bottom: 4px solid #EEC856;*/
   border-bottom: 4px solid #2691d9;
