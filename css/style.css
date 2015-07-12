@@ -6,7 +6,7 @@ body{
   font-size: 2em;
   position: relative;
   /*background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=4ea6ca00&noise=626262&density=69&opacity=39);*/
-  background-color: #D6D3C4;
+  background-color: # ;
   color:#432f21;
 }
 .sep_main{
@@ -144,7 +144,7 @@ img {
 @media only screen
 and (max-width: 768px) {
    #collapser{ 
-  background-color: rgba(0, 0, 0, .6)
+  background-color: rgba(171, 168, 156, .6)
   }
 }
 
