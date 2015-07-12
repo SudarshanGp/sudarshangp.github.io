@@ -5,9 +5,9 @@ body{
   font-weight: 300;
   font-size: 2em;
   position: relative;
-  background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=4ea6ca00&noise=626262&density=69&opacity=39);
-  background-color: #154152;
-  color:rgb(255, 255, 255);
+  /*background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=4ea6ca00&noise=626262&density=69&opacity=39);*/
+  background-color: #D6D3C4;
+  color:#432f21;
 }
 .sep_main{
   height: 115px;
@@ -16,18 +16,27 @@ body{
 .sep{
   height: 5px;
   width: 100%;
-  background-color: black;
+  background-color: #432f21;
   /*outline-offset:;*/
 }
-
+@media(max-width: 767px)
+{
+    #move_down{
+    padding-top: 3cm;
+  }
+}
+/*#about{
+  background-color: #DE8642;
+}*/
+#h_1{
+  color:#77BA9B;
+}
 header  .information img {
     display: block;
     margin: 0 auto 20px;
 }
 @media(min-width:768px) {
-/*  header{
-    top:10px;
-  }*/
+ 
   header .information .img-circle{
     display: block;
     position: relative;
@@ -58,7 +67,7 @@ header  .information  .intro-text .name , .skills{
       text-align: center;
 
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    color:white;
+    color:#432f21 ;
     font-size: 2em;
     font-weight: 700;
 }
@@ -128,13 +137,14 @@ img {
   background-color: white;
 }
 
- #collapser {
+/* #collapser {
   background-color: rgba(255,153,31, 0)
-}
+}*/
+/*Change the color the small menu bar*/
 @media only screen
 and (max-width: 768px) {
-   #collapser{
-  background-color: rgba(255,153,31, .5)
+   #collapser{ 
+  background-color: rgba(0,103,31, .5)
   }
 }
 
@@ -246,11 +256,12 @@ header .inbody .navbar-brand span.subhead {
           transition: background-color 0.5s, transform 0.5s ease-out;
 }
 .icon {
+  color:#2691d9;
 	fill : #2691d9;
 
 }
 .icon:hover {
-	fill : #819090;
+	background:  : #2691d9;
 }
 .icon-13 {
   color: #26d991;
@@ -305,3 +316,7 @@ hr.star-primary:after {
     background-color: #fff;
 }
 
+#mail, #linkedin, #github, #resume
+{
+  text-align:center;
+}
