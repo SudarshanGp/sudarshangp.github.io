@@ -110,21 +110,21 @@ img {
 }
 
  .navbar-default .navbar-nav a:hover {
-  color: #2691d9;
+  color: #432f21;
 }
 
  .navbar-default .navbar-nav .active a {
   font-weight: 700;
   /*color: #EEC856;*/
-  color: #2691d9;
+  color: #432f21;
   background: transparent;
   /*border-bottom: 4px solid #EEC856;*/
-  border-bottom: 4px solid #2691d9;
+  border-bottom: 4px solid #432f21;
   text-shadow: none;
 }
 
  .navbar-default .navbar-nav .active a:hover {
-  color: #E15D5F;
+  color: rgba(67,47,33, 0.3);
   background: transparent;
   text-shadow: none;
 }
@@ -144,7 +144,7 @@ img {
 @media only screen
 and (max-width: 768px) {
    #collapser{ 
-  background-color: rgba(171, 168, 156, .6)
+  background-color: rgba(171, 168, 156, .6);
   }
 }
 
@@ -264,14 +264,14 @@ header .inbody .navbar-brand span.subhead {
 	background:  : #2691d9;
 }
 .icon-13 {
-  color: #26d991;
+  /*color: #26d991;*/
   fill: #26d991;
 }
 .icon-13:hover {
   background: #26d991;
 }
 .icon-17 {
-  color: #2691d9;
+  /*color: #2691d9;*/
   fill: #2691d9;
 }
 .icon-17:hover {
