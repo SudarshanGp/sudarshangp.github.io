@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Roboto+Slab:400,100,300,700);
+      #map {
+        width: 500px;
+        height: 400px;
+      }
+     body .container{
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 300;
+  font-size: 100;
+  position: relative;
+  background: #FDF6E3;
+}
+</style>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+ 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script>
+      function initialize() {
+        var mapCanvas = document.getElementById('map-canvas');
+        var mapOptions = {
+          center: new google.maps.LatLng(44.5403, -78.5463),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions)
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+    <!-- // <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script> -->
+        <!-- <link href="test.css" type="text/css"> -->
+</head>
+<body onload = getLocation()>
+<div class="container">
+
+<scan>THE PARTY IS AT YOUR PLACE</scan>
+<div id="map"></div>
+<p id="demo"></p>
+</div>
+<script>
+var x_1 = 0;
+var x_2 = 0;
+var x = document.getElementById("demo");
+function getLocation() {
+    if (navigator.geolocation) 
+    {
+       navigator.geolocation.getCurrentPosition(init);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+    console.log()
+}
+function init(position) {
+    // x.innerHTML = "Latitude: " + position.coords.latitude + 
+    // "<br>Longitude: " + position.coords.longitude;
+    x_1 = 	position.coords.latitude;
+    y_1 = position.coords.longitude;
+    locate();
+   
+}
+google.maps.event.addDomListener(window, 'load', locate);
+function locate() {
+    console.log("HERE");
+    // Basic options for a simple Google Map
+    // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+    var mapOptions = {
+        // How zoomed in you want the map to start at (always required)
+        zoom: 15,
+        // The latitude and longitude to center the map (always required)
+        center: new google.maps.LatLng(x_1, y_1), // New York
+        // Disables the default Google Maps UI components
+        disableDefaultUI: true,
+        scrollwheel: false,
+        draggable: false,
+        // How you would like to style the map. 
+        // This is where you would paste any style found on Snazzy Maps.
+        styles: [{
+            "featureType": "water",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 17
+            }]
+        }, {
+            "featureType": "landscape",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 20
+            }]
+        }, {
+            "featureType": "road.highway",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 17
+            }]
+        }, {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 29
+            }, {
+                "weight": 0.2
+            }]
+        }, {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 18
+            }]
+        }, {
+            "featureType": "road.local",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 16
+            }]
+        }, {
+            "featureType": "poi",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 21
+            }]
+        }, {
+            "elementType": "labels.text.stroke",
+            "stylers": [{
+                "visibility": "on"
+            }, {
+                "color": "#000000"
+            }, {
+                "lightness": 16
+            }]
+        }, {
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "saturation": 36
+            }, {
+                "color": "#000000"
+            }, {
+                "lightness": 40
+            }]
+        }, {
+            "elementType": "labels.icon",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        }, {
+            "featureType": "transit",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 19
+            }]
+        }, {
+            "featureType": "administrative",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 20
+            }]
+        }, {
+            "featureType": "administrative",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#000000"
+            }, {
+                "lightness": 17
+            }, {
+                "weight": 1.2
+            }]
+        }]
+    };
+    // Get the HTML DOM element that will contain your map 
+    // We are using a div with id="map" seen below in the <body>
+    var mapElement = document.getElementById('map');
+    // Create the Google Map using out element and options defined above
+    var map = new google.maps.Map(mapElement, mapOptions);
+    // Custom Map Marker Icon - Customize the map-marker.png file to customize your icon
+    var image = 'map-marker.png';
+    var myLatLng = new google.maps.LatLng(x_1, y_1);
+    var beachMarker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        icon: image
+    });
+}
+</script>
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+     <script src="js/jquery.easing.min.js"></script>
+
+<script src="js/test.js"></script>
+</body>
+</html>
