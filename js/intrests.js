@@ -50,8 +50,6 @@ for (var i = 0; i< nodes.length; i++) {
 var myChart = d3.select('#chart')
 		.append('svg')
 		 .attr("viewBox", "0 0 " + w + " " + h )
-		// .attr('width', w)
-		// .attr('height', h)
 
 var force = d3.layout.force()
 	.nodes(nodes)
@@ -67,7 +65,7 @@ var link = myChart.selectAll('line')
 var node = myChart.selectAll('circle')
 	.data(nodes).enter()
 	.append('g')
-	.call(force.drag);
+	.call(force.drag)
 
 node.append('circle')
 	.attr('cx', function(d) { return d.x; })
