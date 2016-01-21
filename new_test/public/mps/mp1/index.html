@@ -1,0 +1,250 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MP1: Extreme Edge Cases</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="https://courses.engr.illinois.edu/cs241/#/mp">
+    -->
+
+    <link href='//fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" href="material.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    .big-code-block {
+        border: 1px solid #222;
+        padding: 15px;
+        background-color: #fdfdfd;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+      <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Due <strong>Monday, September 14</strong> at <strong>11:59 p.m.</strong></span>
+        </div>
+      </header>
+      <div class="demo-ribbon"></div>
+      <main class="demo-main mdl-layout__content">
+        <div class="demo-container mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+          <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+            <div class="demo-crumbs mdl-color-text--grey-500">
+                <a href="https://courses.engr.illinois.edu/cs241/">CS 241</a> &gt; <a href="https://courses.engr.illinois.edu/cs241/#/mp">Machine Problems</a> &gt; <a href="#">Extreme Edge Cases</a>
+            </div>
+            <h1>MP1: Extreme Edge Cases</h1>
+
+			<h2>Background</h2>
+
+			<p>What makes code good? Is it camelCase? Lots of comments? Descriptive variable names, perhaps?</p>
+
+			<p>One thing we know is that good code is generally modular--it consists of discrete "units" of functionality that are only responsible for certain behavior. In our case, where we're working with C, these units are primarily functions.</p>
+
+			<p>For example, the C string function <code class="code-block">strlen</code> is responsible solely for determining the length of a string; it doesn't do any I/O or networking. A function that knows all and tries to do all would be bad design, and testing whether that kind of function adheres to expectations would be nontrivial.</p>
+
+			<p>A programmer might ask, "Do my units of work behave the way I expect? If my function expects a string, how does it behave when given <code class="code-block">NULL</code>?". These are crucial questions, since ensuring that units of code work exactly the way one would expect makes it easy to build reliable and robust software. An unreliable unit in a large system can affect the entire system significantly. Imagine if <code class="code-block">strcpy</code>, for example, did not behave properly on all inputs; all of the higher-level units that use <code class="code-block">strcpy</code>, and all of the units that interact with those units, would in-turn have unpredictable behavior, and so the unreliablity would propagate through the whole system.</p>
+
+			<p>Enter unit testing.</p>
+
+			<p>Unit testing is a ubiquitous and crucial software development method used heavily in industry. According to <a href="http://artofunittesting.com/definition-of-a-unit-test/" target="_blank">artofunittesting.com</a>, a unit test is an automated piece of code that invokes a unit of work in the system and then checks a single assumption about the behavior of that unit of work. This sounds like testing--leave it to the QAs, right? Actually, developers, much to their chagrin, are expected to write their own unit tests.</p>
+
+			<p>In order to write effective unit tests, all possible cases of input to a unit (mainly functions, in C), including edge cases, should be tested. Good unit tests test (extreme) edge cases, making sure that the discrete unit of functionality performs as specified with unexpected inputs.</p>
+
+			<p>In this MP, your goal is to create and test the behavior of some very special functions to determine if they are reliable and predictable. While writing your functions, try and write modular code--this will make your life easier when you test it. You'll learn how to write effective test cases--an incredibly helpful skill for the rest of the course. Finally, you'll be able to take these skills to Facenovel for your next internship and impress your coworkers.</p>
+
+			<h2>MP Introduction</h2>
+
+			<p>Congratulations, you're interning for Facenovel! You met with your manager over lunch and he asked you--yes, an intern--to write some components that will be used in production code to try and get an advantage over Broogle.</p>
+
+			<p>There are <strong>two</strong> sets of files, one for each custom function we've outlined for you below. As you might have guessed from the introduction, you're not only going to implement these functions, but also include tests for each function. Robust functions are good functions, and Facenovel expects only the best from a UIUC CS alumnus.</p>
+
+			<p>Your intern project (read: assignment) is to:</p>
+
+			<ol>
+                <li>Write two functions,  <em>and</em></li>
+                <li>Write tests for extreme edge cases for those functions.</li>
+			</ol>
+			<p>The functions are:</p>
+			<ul>
+				<li><code class="code-block">camel_caser</code> in <code class="code-block">camelCaser.c</code>.</li>
+				<li><code class="code-block">handle_baskets</code> in <code class="code-block">basketcases.c</code></li>
+			</ul>
+
+            <p>You will test your implementations in:</p>
+
+            <ul>
+                <li><code class="code-block">test_camelCaser</code> in <code class="code-block">camelCaser_tests.c</code>.</li>
+                <li><code class="code-block">test_basketcases</code> in <code class="code-block">basketcases_tests.c</code>.</li>
+            </ul>
+            <p>These functions should return 1 if the passed-in function behaves as expected, and 0 otherwise. At grade-time, we will pass in various implementations, and your grade will be partially determined by how well you identify the flawed and correct functions.</p>
+            
+			<h2>camelCaser</h2>
+            <p>Files you should edit:</p>
+            <ul>
+                <li><code class="code-block">camelCaser.c</code></li>
+                <li><code class="code-block">camelCaser_tests.c</code></li>
+            </ul>
+
+			<p>Your manager, to celebrate Hump Day, has asked all of the interns to implement a brand new camelCaser to convert sentences into camelCase. To give you a chance to earn your return offer, he also assigned you to write test cases for all the other interns' implementations of camelCaser, with the implementation hidden from you.</p>
+
+			<p>The idea is: given a bunch of sentences in the form of a string, your function will return a <code class="code-block">malloc</code>ed array of sentences, each one joined together into one string in camelCase.</p>
+
+			<p>Here's what we know about the string:
+            <ul>
+                <li>Sentences will end on '.' (a period).</li>
+                <li>Words will be separated  by ' ' (a space).</li>
+            </ul>
+
+			<p>With me so far? An example should make things clearer.</p>
+
+			<h3>caseStudy</h3>
+
+			<p>Let's say I want to get a sequence of sentences in camelCase. This is the string passed into your method:</p>
+
+			<pre class="big-code-block">
+				<code class="code-block" style="white-space: pre !important;">"The Heisenbug is an incredible creature. Facenovel servers get their power from its indeterminism. Code smell can be ignored with INCREDIBLE use of air freshener. God objects are the new religion."
+				</code>
+			</pre>
+
+			<p>Your method should return the following:</p>
+
+			<pre class="big-code-block">
+				<code class="code-block" style="white-space: pre !important;">["theHeisenbugIsAnIncredibleCreature",
+"facenovelServersGetTheirPowerFromItsIndeterminism",
+"codeSmellCanBeIgnoredWithIncredibleUseOfAirFreshener", 
+"godObjectsAreTheNewReligion"]</code>
+			</pre>
+
+			<p>The brackets denote that the above is an array of those strings.</p>
+
+			<h3>testCases</h3>
+
+			<p>Your goal is to show that the other interns' implementations of camelCaser--which, of course, you can't see directly--fail on some extreme test cases, and, in the meantime, demonstrate to the head honcho at Facenovel exactly how robust your own function is.</p>
+
+			<p>Facenovel promises to pass in strings with the description above. Likewise, you promise to return a dynamically allocated array of strings (the array and the strings both on the heap).</p>
+
+			<p>What kinds of edge cases might come up?</p>
+
+            <p>Run <code class="code-block">make camelCaser</code> to test. You will have to fill in tests in <code class="code-block">camelCaser_tests.c</code>.</p>
+
+			<h2>Basket Cases</h2>
+            <p>Files you should edit:</p>
+            <ul>
+                <li><code class="code-block">basketcases.c</code></li>
+                <li><code class="code-block">basketcases_tests.c</code></li>
+            </ul>
+            <p>Facenovel utilizes a pipeline to process the huge amount of data it pulls in from users. In the framework it uses, each stage of the pipeline is modeled as a "basket" with various attributes. Unfortunately, the pipeline is malfunctioning. Thankfully, you've listed "Big Data Specialist" in your Resumé, so you've been asked to diagnose the problem.</p>
+			<p>Implementing and testing this function will give you practice with C structs and dealing with edge cases involving arrays. Your function will be passed an array of zero or more <code class="code-block">basket_t</code> structs:</p>
+			<pre class="big-code-block">
+                <code class="code-block" style="white-space: pre !important;">typedef struct {
+    char *label;
+    int offset;
+} basket_t;</code>
+            </pre>
+            <p>The <code class="code-block">label</code> field is guaranteed to point to a 5 character string.</p>
+			<p>Your function will modify the baskets according to the rules described below, and return a pointer to a struct of type <code class="code-block">report_t</code>. Remember that you should not return pointers to automatic variables (hint)!</p>
+			<pre class="big-code-block">
+                <code class="code-block" style="white-space: pre !important;">typedef struct {
+    int triples_summed;
+    basket_t *target_basket;
+    basket_t *bad_batch;
+} report_t; </code>
+            </pre>
+			<p>The rules are as follows:</p>
+            <ul>
+			    <li>The <code class="code-block">target_basket</code> field of the <code class="code-block">report_t</code> that you return a pointer to should point to the middle basket of the array. If the array does not have a middle basket, the <code class="code-block">target_basket</code> field should be set to <code class="code-block">NULL</code>. Note: a middle basket <em>must</em> have an equal number of baskets to its left and to its right.</li>
+			    <li>The labels of the baskets should be shifted one to the right. That is, the <code class="code-block">label</code> field of basket n+1 should be changed to the <code class="code-block">label</code> field of basket n. Use <code class="code-block">strcpy</code>. The shifting should wrap so that the first basket's <code class="code-block">label</code> will be the last basket's initial <code class="code-block">label</code>.The <code class="code-block">label</code>s should still point to the same place in memory, so do not simply manipulate the pointers. Remember: each <code class="code-block">label</code> field is guaranteed to point to a 5 character string.</li>
+			    <li>The <code class="code-block">triples_summed</code> field of the <code class="code-block">report_t</code> struct that you return a pointer to should contain the sum of the <code class="code-block">offset</code> fields of the baskets, three at a time, if at least three baskets are present. If fewer than three baskets are present, <code class="code-block">triples_summed</code> should be 0. For example, for five baskets, you would sum the first three baskets' <code class="code-block">offset</code> fields, and then the <code class="code-block">offset</code> fields of baskets 2 through 4, and then the <code class="code-block">offset</code> fields for baskets 3 through 5, and store the entire total in the <code class="code-block">triples_summed</code> field. For five baskets with all <code class="code-block">offset</code>s set to 1, <code class="code-block">triples_summed</code> would be 9.
+			    <li>Finally, if the <code class="code-block">triples_summed</code> field is 0, the <code class="code-block">bad_batch</code> field of the struct you return should be set to the first basket, if it exists, or <code class="code-block">NULL</code> otherwise.</li>
+            </ul>
+
+			<p>Think carefully about the various edge cases that these rules present. Remember: the array may contain zero or more baskets, and there is not necessarily a middle basket.</p>
+            <h3>Tests</h3>
+            <p>Run <code class="code-block">make basketcases</code> to test. You will have to fill in tests in <code class="code-block">basketcases_tests.c</code>.</p>
+
+            <h2>File Structure</h2>
+            <p>Each function has <strong>three</strong> files, not including the header files.</p>
+
+            <ul>
+            	<li><strong>&lt;function_name&gt;.(c,h)</strong> is where you'll implement the function.</li>
+            	<li><strong>&lt;function_name&gt;_tests.(c,h)</strong> is where you'll write the extreme test cases.</li>
+            	<li><strong>&lt;function_name&gt;_main.c</strong> is where your tests get called with your implementation.</li>
+            </ul>
+
+            <h2>Running and Testing Your Code</h2>
+
+            <p>
+	            In <code class="code-block">&lt;function_name&gt;_tests.c</code>, you should test your implementation in the <code class="code-block">test_&lt;function_name&gt;</code> function. <code class="code-block">test_&lt;function_name&gt;</code> should return 1 if all of your tests pass on the passed-in function, or 0 if any tests fail. When you test locally, a pointer to <strong>your</strong> implementation is passed in to <code class="code-block">test_&lt;function_name&gt;</code>. At grade time, your tests will be run against our flawed implementations, and your grade will be determined by the number of flawed functions your correctly identify. You should free any allocated memory before <code class="code-block">test_&lt;function_name&gt;</code> returns.
+            </p>
+
+            <p>The file with the function name contains a stub function, where you'll write your implementation.</p>
+
+            <p>The &lt;function_name&gt;_tests.c file are where you'll write the extreme test cases.</p>
+
+            <h2>Grading</h2>
+
+            <p>Each function is allocated 50% of the points for this MP. Test coverage is worth 50% of each function.</p>
+
+            <p><strong>The edge cases will be weighted based on the criterion of extremity.</strong> In other words, the weight of a test case is inversely correlated with its level of triviality.</p>
+
+            <p>Let's make sure we're all on the same page. Here's the grading breakdown:</p>
+            <ul>
+            	<li><strong>25%</strong>: camelCaser implementation</li>
+            	<li><strong>25%</strong>: camelCaser test cases</li>
+            	<li><strong>25%</strong>: basketCase implementation</li>
+            	<li><strong>25%</strong>: basketCase test cases</li>
+            </ul>
+            <p><strong>Reminder:</strong> If you submit the MP late, you will only be eligble for <strong> 80% </strong> of your score for <strong> 48 </strong>hours </p>
+
+			<h2>Feedback</h2>
+
+            <p>We want to keep an open feedback loop, and <a href="https://docs.google.com/forms/d/14Jmo_0DLVgcp6MYyuCYBjcKch6uX2-uXyoGxtqLVdXA/viewform?usp=send_form">this is our way of listening to and incorporating your feedback.</a></p>
+
+            <p><strong>Please include what we do well and what we can improve on (pluses and deltas).</strong> Deltas aren't negatives--they just tell us where we can focus our attention next to give you the best experience as a student.</p>
+
+			<p>We hope you learn a lot with this MP!</p>
+
+        </div>
+      </main>
+    </div>
+    <script src="../../material.min.js"></script>
+  </body>
+</html>

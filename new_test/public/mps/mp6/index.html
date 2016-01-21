@@ -1,0 +1,882 @@
+<!doctype html>
+<!--
+Material Design Lite
+Copyright 2015 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License
+-->
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>MapReduce</title>
+
+		<!-- Add to homescreen for Chrome on Android -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+		<!-- Add to homescreen for Safari on iOS -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Material Design Lite">
+		<link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+		<!-- Tile icon for Win8 (144x144 + tile color) -->
+		<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+		<meta name="msapplication-TileColor" content="#3372DF">
+
+		<link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="material.min.css">
+		<link rel="stylesheet" href="styles.css">
+		<style>
+			.big-code-block {
+				border: 1px solid #222;
+				padding: 15px;
+				background-color: #fdfdfd;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+			<header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+			  <br>
+				<div>
+				  <span class="mdl-layout-title">  Part 1 Deadline: <strong>Monday, November 16</strong> at <strong>11:59 p.m.</strong> </span>
+				</div>
+				<br>
+				<div>
+				 <span class="mdl-layout-title">  Part 2 Deadline: <strong>Friday, November 20</strong> at <strong>11:59 p.m.</strong> </span>
+				</div>
+				<br>
+				<div>
+				  <span class="mdl-layout-title">  Part 2 Late Deadline: for ⌈99.9%⌉ credit: <strong>Monday, November 30</strong> at at <strong>11:59 p.m.</strong> </span>
+				</div>
+				<br>
+			</header>
+
+			<div class="demo-ribbon"></div>
+			<main class="demo-main mdl-layout__content">
+				<div class="demo-container mdl-grid">
+					<div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+					<div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+						<div class="demo-crumbs mdl-color-text--grey-500">
+							<a href="https://courses.engr.illinois.edu/cs241/">CS 241</a> &gt; <a href="https://courses.engr.illinois.edu/cs241/#/mp">Machine Problems</a> &gt; <a href="#">MapReduce</a>
+						</div>
+
+		<h1> MapReduce </h1>
+		<p>
+		In 2004, Google released a general framework for processing large data sets on clusters of computers. We recommend you read <a href="http://en.wikipedia.org/wiki/MapReduce"> this link</a> to MapReduce on Wikipedia for a general understanding of MapReduce. Also, <a href="http://static.googleusercontent.com/media/research.google.com/zh-CN/us/archive/mapreduce-osdi04.pdf"> this paper</a> written by Jeffrey Dean and Sanjay Ghemawat gives more detailed information about mapreduce. However, we will explain everything you need to know below.
+		</p>
+		<p>
+		To demonstrate what MapReduce can do, we'll start with a small dataset--three lines of text:
+		</p>
+		<p>
+			<pre class="big-code-block">
+
+			 Hello
+			<br>
+		
+			 there
+			<br>
+		
+			 class!
+			<br>
+		</pre>
+		</p>
+		<p>
+		The goal of this MapReduce program will be to count the number of occurrences of each letter in the input.
+		</p>
+		<p>
+		MapReduce is designed to make it easy to process large data sets, spreading the work across many machines. We'll start by splitting our (not so large) data set into one chunk per line.
+		</p>
+		<p>
+		<pre class="big-code-block">	<table style="border-left-width:0px;">
+
+<tr>
+
+
+
+<asdfasdftd class="upperleftcell">
+
+
+
+<td class="upperleftcell"></td>
+
+<td><u>Chunk #1</u></td>
+
+<td><u>Chunk #2</u></td>
+
+<td><u>Chunk #3</u></td>
+
+
+
+<tr>
+
+<td class="leftcell"><b>Input</b>
+
+<td>"<tt>Hello</tt>"
+
+<td>"<tt>there</tt>"
+
+<td>"<tt>class!</tt>"
+
+
+
+</tr></table> </pre>
+							
+		</p>
+		<p>
+			<b>Map</b>. Once the data is split into chunks, map() is used to convert the input into (key, value) pairs. In this example, our map() function will simply create a (key, value) pair for each letter in the input, where the key is the letter and the value is 1.
+		</p>
+		<p>
+		<pre class = "big-code-block">
+			<table style="border-left-width:0px;">
+
+
+
+<!-- <tr><td colspan=4 align=center><b>Map</b></td></tr> -->
+
+
+
+<tr>
+
+<td class="upperleftcell"></td>
+
+<td><u>Chunk #1</u></td>
+
+<td><u>Chunk #2</u></td>
+
+<td><u>Chunk #3</u></td>
+
+
+
+<tr>
+
+<td class="leftcell"><b>Input</b>
+
+<td>"<tt>Hello</tt>"
+
+<td>"<tt>there</tt>"
+
+<td>"<tt>class!</tt>"
+
+
+
+<tr>
+
+<td class="leftcell" valign=top><b>Output</b></td>
+
+<td><tt>(h, 1)<br/>
+
+(e, 1)<br/>
+
+(l, 1)<br/>
+
+(l, 1)<br/>
+
+(o, 1)
+
+</tt></td>
+
+<td><tt>(t, 1)<br/>
+
+(h, 1)<br/>
+
+(e, 1)<br/>
+
+(r, 1)<br/>
+
+(e, 1)
+
+</tt></td>
+
+<td><tt>(c, 1)<br/>
+
+(l, 1)<br/>
+
+(a, 1)<br/>
+
+(s, 1)<br/>
+
+(s, 1)
+
+</tt></td>
+
+</tr>
+
+
+
+</tr></table>
+		</pre>
+		</p>	
+		<p>
+			<b>Reduce.</b> Now that the data is organized into (key, value) pairs, the reduce() function is used to combine all the values for each key. In this example, it will add up the count values for each letter. It will "reduce" multiple values into one by adding them: 1+2+3+4+5 → 15. Note that only values for the same key are reduced. Each key is reduced independently, which makes it easy to process keys in parallel.	
+		</p>	
+		<p>
+			<pre class = "big-code-block">
+				<table style="border-left-width:0px;">
+
+
+
+<tr>
+
+<td class="upperleftcell"></td>
+
+<td><u>Chunk #1</u></td>
+
+<td><u>Chunk #2</u></td>
+
+<td><u>Chunk #3</u></td>
+
+
+
+<tr>
+
+<td class="leftcell" valign=top><b>Input</b></td>
+
+<td><tt>(h, 1)<br/>
+
+(e, 1)<br/>
+
+(l, 1)<br/>
+
+(l, 1)<br/>
+
+(o, 1)
+
+</tt></td>
+
+<td><tt>(t, 1)<br/>
+
+(h, 1)<br/>
+
+(e, 1)<br/>
+
+(r, 1)<br/>
+
+(e, 1)
+
+</tt></td>
+
+<td><tt>(c, 1)<br/>
+
+(l, 1)<br/>
+
+(a, 1)<br/>
+
+(s, 1)<br/>
+
+(s, 1)
+
+</tt></td>
+
+</tr>
+
+
+
+<tr>
+
+<td class="leftcell" valign=top><b>Output</b></td>
+
+<td colspan=3><tt>
+
+(a, 1)<br/>
+
+(c, 1)<br/>
+
+(e, 3)<br/>
+
+(h, 2)<br/>
+
+(l, 3)<br/>
+
+(o, 1)<br/>
+
+(r, 1)<br/>
+
+(s, 2)<br/>
+
+(t, 1)<br/>
+
+</tt></td>
+
+</tr>
+
+
+
+</table>
+
+
+			</pre>		
+		</p>	
+		<p>
+			MapReduce is useful because many different algorithms can be implemented by plugging in different functions for map() and reduce(). If you want to implement a new algorithm you just need to implement those two functions. The MapReduce framework will take care of all the other aspects of running a large job: splitting the data and CPU time across any number of machines, recovering from machine failures, tracking job progress, etc.
+
+		</p>
+		<h3> The MP </h3>
+		<p>
+		  For this MP, you have been tasked with building a simplified version of the MapReduce framework. It will run multiple processes on one machine as independent processing units and use IPC mechanisms to communicate between them. map() and reduce() will be programs that read from standard input and write to standard output. The input data for each mapper program will be lines of text. Key/value pairs will be represented as a line of text with ": " between the key and the value:
+		</p>
+		<p>
+			<pre class = "big-code-block">
+				key1: value1
+				<br>
+
+				key two: values and keys may contain spaces
+				<br>
+
+				key_3: but they cannot have colons or newlines
+				<br>
+
+
+			</pre>		
+		</p>
+		<p>
+			<h3> Version 0 - one mapper, one reducer </h3>
+		</p>
+		<p>
+		For your initial implementation, start one mapper process and one reducer.
+		</p>
+		<p>
+			<pre class = "big-code-block">
+
+				input_file
+				<br>
+
+    			&nbsp; &nbsp;	|
+    			<br>
+  				&nbsp;    MAP
+  				<br>   	
+    			&nbsp; &nbsp;	|
+    			<br>		
+  				&nbsp;  REDUCE
+  				 <br>	
+    			&nbsp; &nbsp;	|
+    			<br>	
+			   &nbsp;output_file
+			   <br>
+			</pre>
+		</p>	
+		<p>
+			Your program will:
+		</p>	
+		<p>
+			<pre class = "big-code-block">
+			<ul>
+				<li> Open the input file. </li>
+				<li> Create a pipe to connect the mapper to the reducer. </li>
+				<li> Open the output file. </li>
+				<li>Start the mapper executable (with fork/exec) with stdin reading from the input file and stdout set to write the pipe to the reducer. </li>
+				<li>Start the reducer executable (with fork/exec) with stdin set to read from the pipe from the mapper and stdout set to write to the output file. </li>
+				<li> Wait for the reducer to finish.
+				<li> If either the mapper or reducer exit with a nonzero exit print the exit code to stdout.
+				<li> Count the number of lines in the output file and print it to stdout.
+			</ul>
+			</pre>	
+
+		</p>	
+		<p>
+			You won't implement your own map() or reduce() function--your program will take the names of a map program and a reduce program on the command line and run those.
+		</p>
+			
+		<p>
+			<pre class = "big-code-block">
+				% ./mr0 test.in test.out my_mapper my_reducer
+				<br>
+				my_mapper exited with status 1
+				<br>	
+				my_reducer exited with status 2
+				<br>	
+				output pairs in test.out: 9
+			</pre>	
+		</p>
+<b>Close all unused file descriptors!</b><br><br>  The mapper and redcuer
+  processes won't exit until they reach the end of their input file.  An
+  EOF won't be triggered on their input file until all processes that
+  have a copy of their input file descriptor close that file
+  descriptor. <br> <br> For example, if the main process doesn't close its copy of
+  the write end of the pipe that the reducer is reading from, the
+  reducer will never see an EOF and will never exit.   
+  In each child process created with <tt>fork()</tt> you'll also need
+  to close all unused file descriptors inherited from the parent process.
+  To aid you
+  in this, we've provided a set of functions, declared in common.h, that
+  make it easy to keep track of all the additional file descriptors you
+  create, and to close them all.</p>
+<p>
+  <pre class="big-code-block">
+      void descriptors_add(int fd);
+      <br>
+      void descriptors_closeall();
+      <br>
+      void descriptors_destroy();
+      <br>
+  </pre>
+</p>
+
+<p> You don't have to use these, but they may make the project easier.
+Call <tt>descriptors_add()</tt> on every file descriptor you
+create.  Each subprocess should only use stdin, stdout, and stderr, so
+you should close every other file descriptor by
+calling <tt>descriptors_closeall()</tt>.  At the end of your main
+program you should call <tt>descriptors_destroy()</tt> to deallocate the memory
+used by these functions. </p>
+
+<p>Since most of the child processes in this program have their stdin
+and stdout redirected, you may wish to create a function for that.</p>
+
+<p> You can implement the equivalent of this program in a Unix shell
+quite easily:</p>
+		<p>
+		  <pre class = "big-code-block">
+		    % my_mapper &lt; test.in | my_reducer &gt; test.out
+		  </pre>	
+		</p>	
+<p>
+			<h3>Version 1 - many mappers, one reducer</h3>
+			<b><font color=blue>Due Monday, November 16th 11:59pm</font></b>
+			<br>
+			<br>
+		</p>
+		<p>
+		For version 1, you'll spread the work across multiple instances of the mapper executable.
+		</p>
+		<p>
+		<pre class = "big-code-block">
+			[...input_file...]
+			<br>
+
+     &nbsp;&nbsp; | &nbsp;&nbsp;    |  &nbsp;&nbsp;   |
+     <br>
+
+    &nbsp;  MAP1  MAP2  MAP3
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;   \&nbsp;&nbsp;|&nbsp;&nbsp;/
+    <br>    
+    &nbsp; &nbsp; &nbsp;  REDUCE
+    <br>     
+    &nbsp; &nbsp; &nbsp; &nbsp; |
+    <br>       
+    &nbsp;&nbsp;   output_file
+		</pre>
+		</p>
+		<p>
+		The input file will need to be split into chunks, with one chunk for each mapper process. To split the input file, we've supplied the tool "splitter". Run it without arguments for a brief explanation of how it works. You'll start up one instance of splitter for each mapper, using a pipe to send stdout of splitter to stdin of the mapper program.	
+	</p>
+	<p>
+		<pre class = "big-code-block">
+			&nbsp;splitter inputfile 3 0
+	<br>		
+     &nbsp;|    
+    <br>
+     &nbsp;| &nbsp;&nbsp;   splitter inputfile 3 1
+    <br>
+     &nbsp;| &nbsp;&nbsp;    |    
+    <br>
+     &nbsp;| &nbsp;&nbsp;    |    &nbsp;&nbsp;&nbsp;splitter inputfile 3 2
+    <br>
+     &nbsp;| &nbsp;&nbsp;    |    &nbsp;&nbsp;  |
+    <br>
+    MAP1  MAP2  MAP3
+    <br>
+    &nbsp;&nbsp;&nbsp;\&nbsp;&nbsp;|&nbsp;&nbsp;/
+    <br>    
+    &nbsp; &nbsp;      REDUCE
+    <br>     
+    &nbsp; &nbsp; &nbsp;         |
+    <br>       
+    &nbsp;output_file
+    <br>   
+
+		</pre>	
+
+
+	</p>	
+	<p>
+		Command line:
+	</p>
+	<p>
+		<pre class = "big-code-block">
+
+			mr1 &lt;input_file&gt; &lt;output_file&gt; &lt;mapper_executable&gt; &lt;reducer_executable&gt; &lt;mapper_count&gt;
+
+		</pre>	
+	</p>
+	<p>
+		Sample Usage
+	</p>
+	<p>
+		<pre class = "big-code-block">
+			% ./mr1 test.in test.out my_mapper my_reducer 3
+			<br>  
+			my_mapper 0 exited with status 1
+			<br>  		
+			my_mapper 2 exited with status 2
+			<br>
+			output pairs in test.out: 9
+		</pre>	
+	</p>
+	<p>
+		Your program will:
+	</p>
+	<p>
+			<pre class = "big-code-block">
+			<ul>
+				<li> Create an input pipe for each mapper. </li>
+				<li> Create one input pipe for the reducer. </li>
+				<li> For each mapper process, start a splitter process with stdout set to write to the corresponding mapper input pipe. </li>
+				<li>Start all the mapper processes, each one reading stdin from the appropriate input pipe and writing stdout to the reducer's input pipe. </li>
+				<li>Open the output file. </li>
+				<li>Start the reducer process with stdin reading from the reducer input pipe and stdout writing to the output file.</li>
+				<li>Wait for the reducer to finish.</li>
+				<li>Print any nonzero exit statuses.</li>
+				<li>Count the number of lines in the output file</li>
+			</ul>
+			</pre>	
+	</p>
+	
+	<p><b>Remember to close all the unused file descriptors!</b></p>
+
+	<p>
+	  This too can be done in the Unix shell:
+	</p>	
+	<p>
+		<pre class = "big-code-block">
+			% (./splitter inputfile 3 0 | my_mapper ; \
+			<br>
+   			&nbsp;&nbsp;&nbsp;./splitter inputfile 3 1 | my_mapper ; \
+   			<br>
+   			&nbsp;&nbsp;&nbsp;./splitter inputfile 3 2 | my_mapper ; ) | my_reducer > test.out
+		</pre>	
+	</p>	
+<p>
+  <br>
+  <b/><u> Files used for grading part 1: </u>
+  <ul>
+    <li> mr1.c
+    <li> common.c
+    <li> common.h
+  </ul> 
+</p>
+
+	<p>
+		<h3>Version 2 - many mappers, many reducers, one shuffler</h3>
+		<b><font color=blue>Due Monday, November 20rd 11:59pm</font></b>
+		<br>
+		<br>
+		<b><font color=blue>Partial credit on Monday, November 30th 11:59 pm</font></b>
+		<br>
+		<br>
+	</p>	
+	<p>
+		For the final version of your program, you'll add support for multiple reducers. Each reducer will handle a distinct subset of the keys. In a full implementation of MapReduce, each map process would know how to send data to each reducer process and send each key/value pair to the appropriate place.
+	</p>	
+	<p>
+		In our simplified version of MapReduce, one process will handle the routing of key/value pairs to the correct reducer process. We'll call it the shuffler.
+	</p>	
+	<p>
+			<pre class = "big-code-block">
+			&nbsp;splitter inputfile 3 0
+	<br>		
+     &nbsp;|    
+    <br>
+     &nbsp;| &nbsp;&nbsp;   splitter inputfile 3 1
+    <br>
+     &nbsp;| &nbsp;&nbsp;    |    
+    <br>
+     &nbsp;| &nbsp;&nbsp;    |    &nbsp;&nbsp;&nbsp;splitter inputfile 3 2
+    <br>
+     &nbsp;| &nbsp;&nbsp;    |    &nbsp;&nbsp;  |
+    <br>
+    MAP1  MAP2  MAP3
+    <br>
+    &nbsp;&nbsp;&nbsp;\&nbsp;&nbsp;|&nbsp;&nbsp;/
+    <br>    
+<font color=red>&nbsp;&nbsp;&nbsp;SHUFFLER</font>
+	<br> 	
+ &nbsp;&nbsp;/&nbsp;&nbsp;|&nbsp;&nbsp;|&nbsp;&nbsp;\
+    <br>    
+    R1&nbsp;&nbsp;R2&nbsp;&nbsp;R3&nbsp;&nbsp;R4
+    <br> 
+    &nbsp;&nbsp;\&nbsp;&nbsp;\&nbsp;&nbsp;/&nbsp;&nbsp;/<br>
+    &nbsp;&nbsp;&nbsp;\&nbsp;&nbsp;\/&nbsp;&nbsp;/
+    <br>    
+    &nbsp;output_file
+			</pre>	
+	</p>
+
+	<p>
+	As before, all mapper processes will read from stdin and write to stdout. All mappers will write to one pipe that will be attached to stdin of the shuffler process, which you will write.
+
+	</p>	
+
+<p>The shuffler will be run with N output filenames as command line 
+  parameters, where N is the number of reducer processes.  It will 
+  read key/value pairs from stdin, hash the key and use the hash, modulo N,
+  to decide which output file will the key/value pair will be written to.  
+  Use the <tt>hashKey()</tt> function declared in common.h.</p>
+	
+	<p>
+		<pre class = "big-code-block">
+			const char *key = ...
+			<br>
+			const char *value = ...
+			<br>
+			FILE *outf = output_files[ hashKey(key) % N ];
+			<br>
+			fprintf(outf, "%s: %s\n", key, value)
+			<br>
+		</pre>	
+	</p>
+	<p>
+		<b>Sample shuffler input:</b>
+	</p>	
+	<p>
+		<pre class = "big-code-block">
+			a: 1
+			<br>	
+			c: 1
+			<br>
+			e: 3
+			<br>
+			h: 2
+			<br>	
+			l: 3
+			<br>
+			o: 1
+			<br>
+			r: 1
+			<br>
+			s: 2
+			<br>
+			t: 1
+		</pre>	
+	</p>
+	<p>
+		<b>Sample shuffler output (with 3 output files):</b>
+	</p>
+	<p>
+		<pre class = "big-code-block">
+			<table><tr>
+
+<td>File1 &nbsp; <td>File2 &nbsp; <td>File3 &nbsp;</tr>
+
+<tr valign=top>
+
+<td><tt>
+
+c: 1<br/>
+
+l: 3<br/>
+
+o: 1<br/>
+
+r: 1</td>
+
+</tt></td><td><tt>
+
+e: 3<br/>
+
+h: 2<br/>
+
+t: 1</td>
+
+</tt></td><td><tt>
+
+a: 1<br/>
+
+s: 2</td>
+
+</tt></td></tr>
+
+</table>
+		</pre>	
+	</p>
+	<p>
+		<b>Sample shuffler output (with 4 output files):</b>
+	</p>
+	<p>
+		<pre class = "big-code-block">
+			<table><tr>
+
+<td>File1 &nbsp;  <td>File2 &nbsp;  <td>File3 &nbsp;  <td>File4 &nbsp;</tr></tr>
+
+<tr valign=top>
+
+<td><tt>
+
+c: 1 <br/>
+
+o: 1 <br/>
+
+s: 2 <br/>
+
+</tt></td><td><tt>
+
+r: 1 <br/>
+
+</tt></td><td><tt>
+
+a: 1 <br/>
+
+e: 3 <br/>
+
+</tt></td><td><tt>
+
+h: 2 <br/>
+
+l: 3 <br/>
+
+t: 1 <br/>
+
+</tt></td></tr>
+
+</table>
+		</pre>	
+
+
+	</p>	
+
+	<p>
+		<b>mkfifo.</b> Time for the fun part. You can create pipes that look
+
+like normal files. <a href="https://urldefense.proofpoint.com/v2/url?u=http-3A__linux.die.net_man_3_mkfifo&d=BQMGAg&c=8hUWFZcy2Z-Za5rBPlktOQ&r=D5fSOG1vRG1GPArOFsm_CYrBGkGMKv7tzuJ3q2kxahw&m=Z61Sv8GbAX6xOHtAlVUeD_t_DiMCIiIfP2jgU4trLPs&s=43e8hTIQfhr-VLM_Yw7cRH_PQkfUCxH6W0JUgY_1kS4&e=">See
+
+mkfifo()</a>.  Your main program will use mkfifo() to create a pipe
+
+file for each reducer. Use "./fifo_N" as the names of the fifo files
+
+(so they will be created in the current directory),
+
+where N is the index of the reducer that will read from it.
+		
+Use <tt>S_IRWXU</tt> as the 'mode' argument for mkfifo().
+
+Your program will give the names of those files to shuffler on its
+
+command line. Your program will set up each reducer so it reads
+
+from the corresponding fifo file.
+	</p>
+	
+	<p> mkfifo() will fail if the file exists already. At the end of your program, remove all the fifo files it created. In case your program crashes during testing before it removes the fifo files, you should also try to remove them just before creating them. Be sure to check the return value of mkfifo() and exit with a nonzero exit status and a helpful error message if it does. </p>
+	
+	<p>
+        All the reducers will send their output to one output file. When opening
+        the output file (with <a
+        href="http://linux.die.net/man/3/open">open()</a>) be sure to set O_APPEND
+        (if you do not, the reducers will overwrite each other).
+	</p>
+	<p>
+		Command line:
+	</p>
+	<p>
+		<pre class = "big-code-block">
+			mr2 &lt;input_file&gt; &lt;output_file&gt; &lt;mapper_executable&gt; &lt;reducer_executable&gt; &lt;mapper_count&gt; &lt;reducer_count&gt;
+		</pre>	
+	</p>
+	<p>
+		Sample Usage
+	</p>
+	<p>
+	  <pre class = "big-code-block">
+	    % ./mr2 test.in test.out my_mapper my_reducer 3 4
+	    <br>
+	    
+	    my_mapper 2 exited with status 1
+	    <br>
+	    my_reducer 3 exited with status 1
+	    <br>
+	    output pairs in test.out: 9
+	  </pre>	
+	</p>
+	<p>
+		Your program will:
+	</p>
+	<p>
+			<pre class = "big-code-block">
+			<ul>
+				<li> Create an input pipe for each mapper. </li>
+				<li> Create a fifo file for each reducer. </li>
+				<li> Start a splitter process for each mapper.</li>
+				<li> Start the mappers. </li>
+				<li> Start the shuffler.</li>
+				<li> Open the output file.</li>
+				<li> Start the reducers.</li>	
+				<li> Wait for all the reducers to finish.</li>
+				<li> Remove the fifo files.</li>
+				<li> Print any nonzero exit statuses.</li>
+				<li> Count the number of lines in the output file.	
+			</ul>
+			</pre>	
+	</p>
+
+		<script src="../../material.min.js"></script>
+
+<p>
+  <br>
+  <b/><u> Files used for grading part 2: </u>
+  <ul>
+    <li> mr2.c
+    <li> shuffler.c
+    <li> common.c
+    <li> common.h
+  </ul> 
+</p>
+
+<h3> Running your code </h3>
+
+<p>We have provided a number of mappers and reducers you can run, along with a
+few input files. To download the input files, use the Makefile:<b>
+
+<pre class = "big-code-block">make data
+</pre>
+
+<p> You should now see data/dracula.txt and data/alice.txt in your mp folder </p>
+
+<p> We have provided the following mappers: </p>
+<ul>
+    <li> mapper_wordcount </li>
+    <li> mapper_lettercount </li>
+    <li> mapper_asciicount </li>
+    <li> mapper_wordlengths </li>
+</ul>
+
+<p> These each be used anywhere we specify "my_mapper" in these docs </p>
+
+<p> And the following reducers: </p>
+<ul>
+    <li> reducer_sum </li>
+</ul>
+
+<p> These each be used anywhere we specify "my_reducer" in these docs </p>
+
+
+<p> For example, if you wanted to count the occurrences of each word in Alice in
+Wonderland, you can run and of the following </p>
+
+<pre class="big-code-block">./mr0 data/alice.txt test.out ./mapper_wordcount ./reducer_sum</pre>
+
+<p> With 4 mappers: </p>
+<pre class="big-code-block">./mr1 data/alice.txt test.out ./mapper_wordcount ./reducer_sum 4 </pre>
+
+<p> With 4 mappers and 4 reducers </p>
+<pre class="big-code-block">./mr2 data/alice.txt test.out ./mapper_wordcount ./reducer_sum 4 4 </pre>
+
+
+</body>
+</html>

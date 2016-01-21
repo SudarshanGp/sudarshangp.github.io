@@ -1,0 +1,190 @@
+<div class = "row" ng-controller = 'OverviewController'>
+  <div class="small-12 medium-12 large-8 large-centered columns">
+    <h1>Text Editor</h1>
+    <!-- <h2>DO NOT START LAB UNLESS TOLD TO DO SO! (WE MIGHT CHANGE THE SPECS)</h2> -->
+    <ul class="toc">
+      <h4>Contents</h4>
+      <a href="#lab2/#demo">Demo</a>
+      <a href="#lab2/#overview">Overview</a>
+      <a href="#lab2/#stdin">Reading From Standard Input</a>
+      <a href="#lab2/#data">Data-Structure</a>
+      <a href="#lab2/#print">Printing Content</a>
+      <a href="#lab2/#write">Writing Text</a>
+      <a href="#lab2/#find">Finding Text</a>
+      <a href="#lab2/#save">Saving Text</a>
+      <a href="#lab2/#quit">Closing Your Text Editor</a>
+    </ul>
+    <!-- Demo -->
+    <div class = "pad">
+      <div id = "demo" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Demo</h2>
+        </div>
+        <div class = "content">
+          <h6>Your section leaders will demo a working implementation of this text editor.</h6>
+        </div>
+      </div>
+    </div>
+    <!-- Overview -->
+    <div class = "pad">
+      <div id = "overview" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Overview</h2>
+        </div>
+        <div class = "content">
+          <h6>You will be making your own simple text editor in C!</h6>
+          Your editor can be run like any other editor as: <pre class = "terminal">./editor &ltfilename&gt</pre>
+          Run your editor program with the file name provided as input and store the contents of the file in a data structure.
+          Your program should accept commands from the user in an interactive manner (from stdin). Make sure you can perform the following
+          basic tasks from your editor program:
+          <ol>
+            <li><a href="#lab2/#write">Write text to a file at a specified line number.</a></li>
+            <li><a href="#lab2/#find">Find text in a file and display the matching text with the line number.</a></li>
+            <li><a href="#lab2/#display">Display the contents of a file.</a></li>
+            <li><a href="#lab2/#quit">Save the file.</a></li>
+          </ol>
+          Nota Bene: Lines will be 1 indexed for this assignment!
+          Send all your debug printing to stderr instead of stdout.
+        </div>
+      </div>
+    </div>
+    <!-- Reading From Standard Input -->
+    <div class = "pad">
+      <div id = "stdin" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Reading From Standard Input</h2>
+        </div>
+        <div class = "content">
+          <h6>Your text editor needs to be able to parse arguments and read from standard input.<h6>
+          You need to parse arguments because a user will launch your editor with the following command:
+          <pre class = "terminal">./editor [filename]</pre>
+          So you will need to be able to get the name of file from argv[] and open it.
+          If the file does not exist, then just make it when the user saves (have an empty data structure for now).
+          <h6>You will also need to be able to read from standard input for when the user gives your text editor a command like:<h6>
+          <pre class = "terminal">w 3 I like cats</pre>
+        </div>
+      </div>
+    </div>
+    <!-- Data Structure -->
+    <div class = "pad">
+      <div id = "data" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Data Structure</h2>
+        </div>
+        <div class = "content">
+          <h6>Your text editor needs a data structure to store the contents of the file.<h6>
+          How you implement this is completely up to you and you should decide upon this based on your knowledge of C strings.
+          Note that we have provided an empty 'init' and 'destroy' function
+          that you should use to initially load your data structure when your text editor is launched and destroy when a user inputs the quit command.
+          Note that your init should malloc the fields inside your data structure and destroy should free all memory.<br/>
+          Please keep the following in mind when making your data structure
+          <ol>
+            <li>Lines are 1 indexed</li>
+            <li>There is no limit on the number of lines</li>
+            <li>There is no limit on the number of characters perline</li>
+            <li>Some lines may be empty</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- Printing -->
+    <div class = "pad">
+      <div id = "print" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Printing Content</h2>
+        </div>
+        <div class = "content">
+          <h6>Your text editor should be able to print out the content of its data structure.<h6>
+          After a user has launched your editor, they can ask it to print out the contents of its data structure by entering commands into standard input.
+          There are two ways your user can ask your editor to do this.
+          The first is by asking you to print the entirety of your data structure to standard out with the following command:
+          <pre class = "terminal">p</pre>
+          Which will print the file (that here has 3 lines) like so:
+          <pre class = "terminal">1    This is a sentence.</pre>
+          <pre class = "terminal">2    Is this a question?</pre>
+          <pre class = "terminal">3    I like cats!</pre>
+          And the second way is by asking you to print out just one line with the following command:
+          <pre class = "terminal">p 3</pre>
+          which should print out just line 3 (if line 3 does not exist then this is a no op; if line 3 is empty then still print the line number and tab) like so
+          <pre class = "terminal">3    I like cats!</pre>
+          There is a tab inbetween the line number and the line ('\t' is the character escape for tab).
+        </div>
+      </div>
+    </div>
+    <!-- Writing to a file -->
+    <div class = "pad">
+      <div id = "write" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Write Text To A File</h2>
+        </div>
+        <div class = "content">
+          <h6>There are two ways that your editor should be able to write to a file once it is launched.<h6>
+          The first way to write to a file is to OVERWRITE a line completely with the following command:
+          <pre class = "terminal">w 3 I like cats!</pre>
+          This will OVERWRITE line 3 with "I like cats!".
+          The second way to write to a file is to APPEND a line with the following command:
+          <pre class = "terminal">a 3 I like cats!</pre>
+          This will APPEND to line 3 "I like cats!".
+          An extra feature your editor needs to account for is a newline escape (a backslash followed by lowercase n).
+          For example the user can input the following:
+          <pre class = "terminal">w 3 I like cats!\nDogs are alright.</pre>
+          This will OVERWRITE line 3 with "I like cats!".
+          Second, because there is a newline escape (the backslash n), this will ALSO create a NEW line that will become line 4 and read "Dogs are alright.".
+          The old line 4 and all subsequent lines after get shifted down.
+          Both the "w" and "a" modes may contain multiple newline escapes, and an additional line should be inserted for each.<br/><br/>
+          Please note that all these write operations will only modify your datastructure and not the actual file.
+          Only when the user runs the save command will you write the changes over to the actual file.
+          Also note that if your editor is asked to write to a line that does not exist yet, then it should fill in the gap with empty lines.
+          For example if you are asked to write to line 10 in a 3 line file, then lines 4 to 9 should be empty lines.
+        </div>
+      </div>
+    </div>
+    <!-- Finding Text -->
+    <div class = "pad">
+      <div id = "find" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Finding Text</h2>
+        </div>
+        <div class = "content">
+          <h6>Your text editor should be able to find all occurrences of a word and display the words with their line numbers.<h6>
+          Remember the searching should be done on the data structure and not the actual file.
+          So if your user has made some changes since they opened the file, then your editor should be able to find the words in those changes.
+          If your user inputs the following into standard input:
+          <pre class = "terminal">/like cats</pre>
+          Then your texteditor should print all occurances (the whole line) with their line numbers in following format.
+          <pre class = "terminal">3    I [like cats]!</pre>
+          There is a tab inbetween the line number and the line.
+          You will need to surround the search term with square brackets.
+        </div>
+      </div>
+    </div>
+    <!-- Saving Text -->
+    <div class = "pad">
+      <div id = "save" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Saving Text</h2>
+        </div>
+        <div class = "content">
+          <h6>Your text editor should be able to save back all the changes to the file.<h6>
+          So if your user inputs the following into standard input:
+          <pre class = "terminal">s</pre>
+          Then your text editor should write back everything to the file.
+        </div>
+      </div>
+    </div>
+    <!-- Closing Your Text Editor -->
+    <div class = "pad">
+      <div id = "quit" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Closing Your Text Editor</h2>
+        </div>
+        <div class = "content">
+          <h6>Your text editor should be able to close without memory leaks.<h6>
+          So if your user inputs the following into standard input:
+          <pre class = "terminal">q</pre>
+          Then your text editor should quit and free your data structure (even if there are changes the user has not saved).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

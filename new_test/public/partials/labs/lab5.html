@@ -1,0 +1,150 @@
+<div class = "row" ng-controller = 'OverviewController'>
+  <div class="small-12 medium-12 large-8 large-centered columns">
+    <h1>Lab GDB</h1>
+    <!-- <h2>DO NOT START LAB UNLESS TOLD TO DO SO! (WE MIGHT CHANGE THE SPECS)</h2> -->
+    <ul class="toc">
+      <h4>Contents</h4>
+      <a href="#lab5/#objectives">Learning Objectives</a>
+      <a href="#lab5/#setup">Setup</a>
+      <a href="#lab5/#slides">GDB Slides</a>
+      <a href="#lab5/#demo">Demo</a>
+      <a href="#lab5/#exercise">Getting Your Hands Dirty</a>
+      <a href="#lab5/#grading">Grading</a>
+    </ul>
+    <!-- Learning Objectives -->
+    <div class = "pad">
+      <div id = "objectives" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Learning Objectives</h2>
+        </div>
+        <div class = "content">
+          <ul>GDB</ul>
+          <ul>Debugging</ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Setup -->
+    <div class = "pad">
+      <div id = "setup" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Setup</h2>
+        </div>
+        <div class = "content">
+          <a href="https://en.wikipedia.org/wiki/Rubber_duck_debugging" style="margin-top:5%"><img width="80%"src="https://upload.wikimedia.org/wikipedia/commons/1/14/Rubber_Duck_(8374802487).jpg"/></a>
+          <br/>
+          First update svn
+          <pre class = "terminal">
+cd ~/cs241
+svn up
+cd ducky_debugging</pre>
+          Then install CGDB
+          <pre class = "terminal">sudo yum install cgdb</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slides -->
+    <div class = "pad">
+      <div id = "slides" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">GDB Slides</h2>
+        </div>
+        <div class = "content">
+          <h6>Your lab instructor will go over gdb (GNU Debugger)<a href = "http://www.cs.umd.edu/~srhuang/teaching/cmsc212/gdb-tutorial-handout.pdf" target="_blank">slides</a>.</h6>
+          <blockquote style="font-size:1em">
+            If you haven’t already done so, please stow your backpacks underneath the table in front of you or under your seat. Please take your seat and fasten your seat belt. And also make sure your seat back and keyboards are in their full upright position.
+            If you are seated next to an emergency exit, please read carefully the special instructions card located by your seat. If you do not wish to perform the functions described in the event of an emergency, please ask a lab assistant to reseat you.
+            At this time, we request that all mobile phones and smartwatches be turned off for the full duration of the presentation, as these items might interfere with your learning of the material. We request that all other electronic devices be turned off until we get to slide 56. We will notify you when it is safe to use such devices.
+            We remind you that this is a non-smoking campus. Smoking is prohibited on the campus, including the lavatories. Tampering with, disabling or destroying the lavatory smoke detectors is prohibited by law.
+            If you have any questions about our presentation today, please don’t hesitate to ask one of our lab assistants. Thank you.
+          </blockquote>
+          <p>
+            When in doubt please refer to the following <a href = "http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html" target="_blank">reference manual</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo -->
+    <div class = "pad">
+      <div id = "demo" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Demo</h2>
+        </div>
+        <div class = "content">
+          <h6>Demo.</h6>
+          <p>
+            Compile the given code with the following command
+            <pre class = "terminal">clang -Wall -Wextra -Werror -Wno-sign-compare -g lab_gdb_bad.c -o lab_bad</pre>
+            Don't forget to include the flag -g when compiling you code in the future if you wanna use gdb, otherwise it won't work.
+            Now, try to excute with
+            <pre class = "terminal">./lab_bad</pre>
+            It seg-faults.
+            Now let's try using gdb to find out where the program crashes.
+            Run the following commands 1 line at a time.
+            <pre class = "terminal">
+cgdb
+file lab_bad
+run
+backtrace
+</pre>
+            Now let's set some break points before the line the program crashes.
+            Run the following commands 1 line at a time.
+            <pre class = "terminal">
+b lab_gdb_bad.c:77
+b lab_gdb_bad.c:79
+b lab_gdb_bad.c:86
+b lab_gdb_bad.c:89
+run
+</pre>
+            and select y to restart from begining.
+            As we stop at the first break point.
+            Hit <pre class = "terminal">c</pre> for continue and <pre class = "terminal">print fptr</pre>
+            to examine the value of fptr.
+            It is a null pointer.
+            Can you see why?(<a href = "./data/resources/getline.txt">hint</a>, <a href="./data/resources/getline_output.txt">hint</a>).
+            Now, after this simple example, let's uncomment line number 96, and run the program again.
+            It says invalid pointer and system aborts.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- exercise? -->
+    <div class = "pad">
+      <div id = "exercise" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Getting Your Hands Dirty</h2>
+        </div>
+        <div class = "content">
+          <h6>Now it is your turn.</h6>
+          <p>
+            Now, examine the lines the program crashes and debug lab_gdb_bad.c using what you have learned so far in GDB. Keep in mind that this program is supposed to read in a file line by line and split by periods and remove whitespace.
+          </p>
+          <p>
+            <pre class = "terminal">man strtok</pre> will be very helpful.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- grading -->
+    <div class = "pad">
+      <div id = "grading" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Grading</h2>
+        </div>
+        <div class = "content">
+          <h6>Grading.</h6>
+          <p>
+            You must debug lab_gdb_bad.c AND attend lab to get full points.
+            If you fail to do any than you will recieve a 0.
+            You may not use printf or other debugging methods.
+            And you must keep strtok() in lab_gdb_bad.c
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

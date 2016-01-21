@@ -1,0 +1,194 @@
+[
+  {
+    "name": "Brandon Chong",
+    "netid": "bschong2",
+    "class": "17",
+    "roles": "1337 Javascript HaxOr",
+    "speciality": "CS Education",
+    "semsters": "Spring 2015, and Fall 2015"
+  },
+  {
+    "name": "Eric Sauer",
+    "netid": "emsauer2",
+    "class": "17",
+    "roles": "MP Development and Autograding",
+    "speciality": "Game Engines",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Zane Ma",
+    "netid": "zanema2",
+    "class": "Graduate",
+    "roles": "Lab TA",
+    "speciality": "Systems",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Zhongshen Zeng",
+    "netid": "zzeng9",
+    "class": "17",
+    "roles": "Lab and Officer Hours Assistant",
+    "speciality": "VR or Data Analysis",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Johnny Chang",
+    "netid": "jychang3",
+    "class": "17",
+    "roles": "MP Developer",
+    "speciality": "NLP and Distributed Systems",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Varun Thangavelu",
+    "netid": "thangav2",
+    "class": "17",
+    "roles": "Lab and Officer Hours Assistant",
+    "speciality": "Big Data",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Alex Kizer",
+    "netid": "apkizer2",
+    "class": "17",
+    "roles": "MP Developer",
+    "speciality": "CS Education",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Thomas Liu",
+    "netid": "tfliu2",
+    "class": "17",
+    "roles": "Office Hour Assistants Team Lead",
+    "speciality": "Data Science",
+    "semsters": "Spring 2015, and Fall 2015"
+  },
+  {
+    "name": "Ed Karrels",
+    "netid": "edk",
+    "class": "97",
+    "roles": "Co-Lecturer",
+    "speciality": "Parallel Programming",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "David Zmick",
+    "netid": "zmick2",
+    "class": "16",
+    "roles": "MP Developer",
+    "speciality": "Compilers, Networking, and Performance",
+    "semsters": "Spring 2015, and Fall 2015"
+  },
+  {
+    "name": "Yushuo Lin",
+    "netid": "ylin91",
+    "class": "17",
+    "roles": "Lab and Officer Hours Assistant",
+    "speciality": "CS and Stat",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Porter Smith",
+    "netid": "pmsmith2",
+    "class": "17",
+    "roles": "Office Hours Assistant",
+    "speciality": "CS and Stat",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Brian Truong",
+    "netid": "btruong2",
+    "class": "17",
+    "roles": "Lead Autograder",
+    "speciality": "Software Development and Programming",
+    "semsters": "Spring 2015, and Fall 2015"
+  },
+  {
+    "name": "Alek Festekjian",
+    "netid": "festekj2",
+    "class": "17",
+    "roles": "Autograder Developer",
+    "speciality": "Datascience",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "WeiChun Lee",
+    "netid": "wlee114",
+    "class": "Graduate",
+    "roles": "Teaching Assistant",
+    "speciality": "Algorithmic Game Theory and Social Network",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Maidi Lin",
+    "netid": "mlin35",
+    "class": "16",
+    "roles": "Lab and Officer Hours Assistant",
+    "speciality": "Software Engineering",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Sudarshan Govindaprasad",
+    "netid": "gvndprs2",
+    "class": "17",
+    "roles": "MP Developer",
+    "speciality": "Networking, Distributes Systems and Security",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Curtis Bezault",
+    "netid": "bezault2",
+    "class": "17",
+    "roles": "Lab Assistant",
+    "speciality": "High Performance Computing/Massively Parallel Computing",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Luke Liu",
+    "netid": "jianliu4",
+    "class": "17",
+    "roles": "Autograder and MP Developer",
+    "speciality": "Linux",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Robert Andrews",
+    "netid": "rgandre2",
+    "class": "18",
+    "roles": "Honors Section Leader",
+    "speciality": "Theoretical Computer Science",
+    "semsters": "Fall 2015"
+  },
+  {
+    "name": "Jake Bailey",
+    "netid": "jbbaile2",
+    "class": "17",
+    "roles": "Master of Piazza",
+    "speciality": "Systems and CS Education",
+    "semsters": "Spring 2015 and Fall 2015"
+  },
+  {
+    "name": "Lawrence Angrave",
+    "netid": "angrave",
+    "class": "",
+    "roles": "Captain and Lecturer",
+    "speciality": "Systems and CS Education",
+    "semsters": "Fall 2014, Spring 2015, and Fall 2015"
+  },
+  {
+    "name": "Paul Vijayakumar",
+    "netid": "pvijaya2",
+    "class": "16",
+    "roles": "MP Development Team Lead",
+    "speciality": "Machine Learning and Distributed Systems",
+    "semsters": "Fall 2014, Spring 2015, and Fall 2015"
+  },
+  {
+    "name": "Alec Kochevar-Cureton",
+    "netid": "kocheva2",
+    "class": "16",
+    "roles": "Lab and Office Hours Assistant; Friend",
+    "speciality": "Puzzles",
+    "semsters": "Fall 2015"
+  }
+]

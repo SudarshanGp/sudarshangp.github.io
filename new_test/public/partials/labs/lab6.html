@@ -1,0 +1,110 @@
+<div class = "row" ng-controller = 'OverviewController'>
+  <div class="small-12 medium-12 large-8 large-centered columns">
+    <h1>Mini Valgrind</h1>
+    <!-- <h2>DO NOT START LAB UNLESS TOLD TO DO SO! (WE MIGHT CHANGE THE SPECS)</h2> -->
+    <ul class="toc">
+      <h4>Contents</h4>
+      <a href="#lab6/#objectives">Learning Objectives</a>
+      <a href="#lab6/#setup">Setup</a>
+      <a href="#lab6/#explain">Explaination</a>
+      <a href="#lab6/#motivation">Motivation</a>
+      <a href="#lab6/#grading">Grading</a>
+    </ul>
+    <!-- Learning Objectives -->
+    <div class = "pad">
+      <div id = "objectives" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Learning Objectives</h2>
+        </div>
+        <div class = "content">
+          <ul>Valgrind</ul>
+          <ul>Memory Leak</ul>
+          <ul>Malloc</ul>
+          <ul>Free</ul>
+          <ul>Monitoring Memory Usage</ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Setup -->
+    <div class = "pad">
+      <div id = "setup" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Setup</h2>
+        </div>
+        <div class = "content">
+          <br/>
+          First update svn
+          <pre class = "terminal">
+cd ~/cs241
+svn up
+cd mini_valgrind</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Explanation -->
+    <div class = "pad">
+      <div id = "explain" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Explanation</h2>
+        </div>
+        <div class = "content">
+            <h6>Your lab assistant will explain what this lab is at a high level.</h6>
+            <img src="./data/resources/memory_leaks_everywhere.png" style = "display: block; margin: 0 auto; width:80%"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Motivation -->
+    <div class = "pad">
+      <div id = "motivation" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Motivation</h2>
+        </div>
+        <div class = "content">
+          <h6>Welcome to mini valgrind wonderland!</h6>
+          <p>
+              This week, you will have some fun implementing a mini version of valgrind.
+              As you know, valgrind monitors memory usage (calls to malloc and free) and detects memory mismanagement.
+              For this lab, you will need to implement a memory leak detector “mini_valgrind” which prints out a summary of the memory leaks in the chosen C program.
+              Memory leak occurs when a computer program allocates memory, but doesn't release the memory when it exits.
+              As a student of CS241, you have probably encountered memory leak problems before and now you have the chance to implement a program that detects memory leak!
+              Isn’t that cool?
+          </p>
+          <p>
+              We have provided you mini_valgrind.h file which contains:
+
+              <pre class = "terminal">struct _meta_data</pre>
+              which contains the address of the pointer malloc returns, the size of blocks allocated, line number in the C program where the leaked memory was allocated, the name of the C program, and a pointer to the next node.
+          </p>
+          <p>
+              Your job is to implement the functions in mini_valgrind.c.
+              After running the program, you will receive a summary of memory leak information in the C program in result.txt.
+              You can add more test cases in test.c.
+          </p>
+          <!-- <p>
+              Now, it is your turn to <a href = "http://www.classtranscribe.com/viewer?videoIndex=0&startTime=160.78125" target = "_blank">play!</a>
+              Good luck!
+          </p> -->
+          <img src="./data/resources/time_for_you_to_play.gif" style = "display: block; margin: 0 auto;"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- grading -->
+    <div class = "pad">
+      <div id = "grading" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Grading</h2>
+        </div>
+        <div class = "content">
+          <h6>Grading.</h6>
+          <p>
+            Your grade will be some linear combination of implementing minci_valgrind and attending lab.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+Learning objectives for quiz 2
+
+Implementing an allocator is NOT on this quiz.
+This quiz will cover week 3 topics- 
+https://github.com/angrave/SystemProgramming/wiki/Forking%2C-Part-1%3A-Introduction
+https://github.com/angrave/SystemProgramming/wiki/Forking%2C-Part-2%3A-Fork%2C-Exec%2C-Wait
+https://github.com/angrave/SystemProgramming/wiki/Memory%2C-Part-1%3A-Heap-Memory-Introduction
+
+Process Memory
+  Common memory segments (e.g. data, heap, stack)
+  Parameter values, local (automatic) variables and return addresses are stored in the stack
+  Program code and constants (e.g. string literals) are read-only
+  Global variables are not stored in the stack and not in the heap
+
+Process-Control
+  fork-exec-wait pattern
+  Correct use of fork
+  Correct use of exec
+  Why exec does not normally return
+  execp and the PATH environment variable
+
+Process states
+  Processes have a parent
+  Fork bomb
+  Zombie Processes
+  Orphan Processes
+  Exit status, wait and wait macros
+  
+Process signals
+  Examples of generating common signals. Including...
+    SIGINT
+    SIGALARM
+    SIGKILL
+    SIGSTOP
+  Sending signals from C
+  "CTRL-C" sends a SIGINT signal
+  Sending signals from the shell
+
+Heap Memory Allocation
+  Correct use of malloc, calloc, realloc
+  Differences between malloc and calloc
+  malloc, calloc and heap allocate heap memory
+  realloc, malloc memory is not initialized to zero. calloc memory is.
+  realloc may reposition your existing data for you; use the return value
+  Spotting common mistakes in using malloc, calloc and realloc.
+
+
+
+

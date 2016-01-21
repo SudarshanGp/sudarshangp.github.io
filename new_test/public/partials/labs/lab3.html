@@ -1,0 +1,324 @@
+<div class = "row" ng-controller = 'OverviewController'>
+  <div class="small-12 medium-12 large-8 large-centered columns">
+    <h1>Utilities Unleashed</h1>
+    <!-- <h2>DO NOT START LAB UNLESS TOLD TO DO SO! (WE MIGHT CHANGE THE SPECS)</h2> -->
+    <ul class="toc">
+      <h4>Contents</h4>
+      <a href="#lab3/#demo">Demo</a>
+      <a href="#lab3/#overview">Overview</a>
+      <a href="#lab3/#objectives">Learning Objectives</a>
+      <a href="#lab3/setup">Setup</a>
+      <!-- <a href="#lab3/#cat">cat</a> -->
+      <!-- <a href="#lab3/#sort">sort</a> -->
+      <a href="#lab3/#time">time</a>
+      <!-- <a href="#lab3/#race">race</a> -->
+      <!-- <a href="#lab3/#run">run</a> -->
+      <a href="#lab3/#env">env</a>
+      <!-- <a href="#lab3/#date">date</a> -->
+      <!-- <a href="#lab3/#wc">wc</a> -->
+      <!-- <a href="#lab3/#ediff">ediff (easy diff)</a> -->
+    </ul>
+    <!-- Demo -->
+    <div class = "pad">
+      <div id = "demo" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Demo</h2>
+        </div>
+        <div class = "content">
+          <h6>Your section leaders will demo a working implementation of all the C utilities.</h6>
+        </div>
+      </div>
+    </div>
+    <!-- Learning Objectives -->
+    <div class = "pad">
+      <div id = "objectives" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Learning Objectives</h2>
+        </div>
+        <div class = "content">
+          <ul>
+            <li>C Utilities</li>
+            <li>Fork, Exec, Wait</li>
+            <li>Environmental Variables</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Overview -->
+    <div class = "pad">
+      <div id = "overview" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Overview</h2>
+        </div>
+        <div class = "content">
+          <h6>In this lab you will be implementing the following C utilities.</h6>
+          <ul>
+            <!-- <li><a href="#lab3/#cat">cat</a></li> -->
+            <!-- <li><a href="#lab3/#sort">sort</a></li> -->
+            <a href="#lab3/#time">time</a>
+            <!-- <a href="#lab3/#race">race</a> -->
+            <!-- <a href="#lab3/#run">run</a> -->
+            <a href="#lab3/#env">env</a>
+            <!-- <li><a href="#lab3/#date">date</a></li> -->
+            <!-- <li><a href="#lab3/#wc">wc</a></li> -->
+            <!-- <li><a href="#lab3/#ediff">ediff (easy diff)</a></li> -->
+          </ul>
+          Do not worry about flags or features that we do not mention.
+          <h3>Write all debug logs to standard error!</h3>
+        </div>
+      </div>
+    </div>
+    <!-- Setup -->
+    <div class = "pad">
+      <div id = "setup" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Setup</h2>
+        </div>
+        <div class = "content">
+          <pre class = "terminal">
+cd ~/cs241
+svn up
+cd utilities_unleashed</pre>
+        </div>
+      </div>
+    </div>
+    <!-- cat -->
+    <!-- <div class = "pad">
+      <div id = "cat" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">cat</h2>
+        </div>
+        <div class = "content">
+          <h6>In this lab you will be implementing 'cat'.</h6>
+          cat - concatenate files and print on the standard output.
+          So if a user enters
+          <pre class = "terminal">cat hello.txt world.txt</pre>
+          then cat will output all the lines of hello.txt followed by world.txt.
+          So if hello.txt contained <pre class = "terminal">hello</pre>
+          and world.txt contained <pre class = "terminal">world</pre>
+          then <pre class = "terminal">cat hello.txt world.txt</pre>
+          would print out
+          <pre class = "terminal">
+hello
+world</pre>
+        </div>
+      </div>
+    </div> -->
+    <!-- sort -->
+    <!-- <div class = "pad">
+      <div id = "sort" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">sort</h2>
+        </div>
+        <div class = "content">
+          <h6>In this lab you will be implementing 'sort'.</h6>
+          sort - sort lines of text files
+          So if a user enters
+          <pre class = "terminal">sort file1.txt file2.txt</pre>
+          then sort will output all the lines of file1.txt file2.txt in sorted order.
+          So if file1.txt contained
+          <pre class = "terminal">
+3.14
+pi</pre>
+          and file2.txt contained
+          <pre class = "terminal">
+e
+2.17</pre>
+          then
+          <pre class = "terminal">sort file1.txt file2.txt</pre>
+          would print out
+          <pre class = "terminal">
+2.17
+3.14
+e
+pi</pre>
+        </div>
+      </div>
+    </div> -->
+    <!-- time -->
+    <div class = "pad">
+      <div id = "time" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">time</h2>
+        </div>
+        <div class = "content">
+          <h6>In this lab you will be implementing 'time'.</h6>
+          time - run a program and reports how long it took.
+          So if a user enters
+          <pre class = "terminal">./time sleep 2</pre>
+          then time will run 'sleep' with the argument '2' and record how long it took in seconds.
+          Format it as a floating point number with six digits to the right of the decimal point for example
+          <pre class = "terminal">2.002345 seconds</pre>
+          Note that we only care about wall clock time and we recommend <a href = "http://linux.die.net/man/3/clock_gettime">clock_gettime</a>.
+          Pro Tip: 1 second == 1,000,000,000 nanoseconds.<br>
+          Nota Bene:
+          <ul>
+            <li>We will also always give you programs that terminate successfully.</li>
+            <li>There will also always be one program.</li>
+            <li>The command you run will take any number of arguments</li>
+            <li>Do your time computations with double-precision floating pointer numbers (double) rather that single-precision (float), because floats don't have sufficient accuracy and your (start_time-end_time) subtraction will just be 0.0.</li>
+            <li>You'll need to #define _GNU_SOURCE before any of your #include files for this</li>
+            <li>On the EWS machines, you'll need to add "-lrt" to the compiler command line for it to find this function. This is in your makefile, and it's the line that builds "time" from "time.o"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- race -->
+    <!-- <div class = "pad">
+      <div id = "race" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">race</h2>
+        </div>
+        <div class = "content">
+          <h6>In this lab you will be implementing 'race'.</h6>
+          race - run programs and reports which ran the fastest.
+          So if a user enters
+          <pre class = "terminal">./race ./prog1 --- ./prog2</pre>
+          Notice that the programs are seperated by " --- ".
+          then time will run prog1 THEN prog2 and report which ran faster.
+          The format should be the name of the program that ran the fastest.
+          Note that we only care about wall clock time and that as many programs can be run.
+          We will also always give you programs that terminate successfully.
+          There will also always be at least two programs.
+        </div>
+      </div>
+    </div> -->
+    <!-- run -->
+    <!-- <div class = "pad">
+      <div id = "run" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">run</h2>
+        </div>
+        <div class = "content">
+          <h6>In this lab you will be implementing 'run'.</h6>
+          run - runs a bunch of commands given a file.
+          The first line of each file is a command to run for each of the subsequent lines.
+          Instances of open-close braces '{}' in the command will be replaced by the values in the subsequent lines and run in sequence.
+          For example if the user enters <pre class = "terminal">./run input.txt</pre>
+          and input.txt looks like the following.
+          <pre class = "terminal">
+echo {}
+a
+b
+c</pre>
+          then the output would be
+          <pre class = "terminal">
+a
+b
+c</pre>
+          We gaurentee a valid file.
+        </div>
+      </div>
+    </div> -->
+    <!-- env -->
+    <div class = "pad">
+      <div id = "env" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">env</h2>
+        </div>
+        <div class = "content">
+          <h6>In this lab you will be implementing 'env'.</h6>
+          env - run a program in a modified environment
+          When run without arguments, it prints a list of all the current environment variables.
+          When run with arguments, it will be given at least two arguments:
+          <pre class = "terminal">./env &lt;var-list&gt; &lt;command-name&gt;</pre>
+          <!-- &lt;var-list&gt; is a comma-separated list of changes that are to be made to environment variables, and &lt;command-name&gt; is the name of a command that is to be run after making those changes.
+          Any additional arguments are to passed as arguments to &lt;command-name&gt;.
+          Each of the environment variable changes in &lt;var-list&gt; are in the form &lt;destvar&gt;=&lt;value&gt;.
+          &lt;destvar&gt; is the name of the environment variable that is to be changed and &lt;value&gt; is the new value.
+          &lt;value&gt; may contain references to environment variables in the form %&lt;srcvar&gt;.
+          Each reference to &lt;srcvar&gt; should be replaced with the value of &lt;srcvar&gt;.
+          The names of the variables &lt;destvar&gt; and &lt;srcvar&gt; will contain only letters, numbers, or underscore characters.
+          For each environment variable change in &lt;var-list&gt;, your program will assign &lt;value&gt; to &lt;destvar&gt; in the current environment so when &lt;command-name&gt; is executed, it will inherit the new value of the &lt;destvar&gt; variable. -->
+          <ul>
+            <li>&lt;var-list&gt; is a comma-separated list of changes that are to be made to environment variables, and &lt;command-name&gt; is the name of a command that is to be run after making those changes.</li>
+            <li>Any additional arguments are to passed as arguments to &lt;command-name&gt;.</li>
+            <li>Each of the environment variable changes in &lt;var-list&gt; are in the form &lt;destvar&gt;=&lt;value&gt;.</li>
+            <li>&lt;destvar&gt; is the name of the environment variable that is to be changed and &lt;value&gt; is the new value.</li>
+            <li>&lt;value&gt; may contain references to environment variables in the form %&lt;srcvar&gt;.</li>
+            <li>Each reference to &lt;srcvar&gt; should be replaced with the value of &lt;srcvar&gt;.</li>
+            <li>The names of the variables &lt;destvar&gt; and &lt;srcvar&gt; will contain only letters, numbers, or underscore characters.</li>
+            <li>For each environment variable change in &lt;var-list&gt;, your program will assign &lt;value&gt; to &lt;destvar&gt; in the current environment so when &lt;command-name&gt; is executed, it will inherit the new value of the &lt;destvar&gt; variable.</li>
+          </ul>
+          For example if the user enters
+          <pre class = "terminal">./env</pre>
+          then you should print out all the environment variables.
+          Try
+          <pre class = "terminal">env</pre>
+          in your terminal to see it in action.
+          For example if the user enters
+          <pre class = "terminal">./env TZ=MST7MDT date</pre>
+          then it change the TZ environment variable while running the date command.
+          And if the user enters
+          <pre class = "terminal">./env PATH=%HOME/bin:%PATH,IDIR=/%HOME/include,LIBDIR=/%HOME/lib make -j4</pre>
+          then it changes the PATH, IDIR, and LIBDIR variables while running make with the j4 option.
+          We will always give valid input. <br/>
+          Nota Bene:
+          <ul>
+            <li>If a variable doesn't exist, interpret its value as a zero-length string</li>
+          </ul>
+          <br/><br/>
+          <a href = "http://www.gnu.org/software/libc/manual/html_node/Environment-Variables.html">Super Useful Resource</a>
+        </div>
+      </div>
+    </div>
+    <!-- date -->
+    <!-- <div class = "pad">
+      <div id = "time" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">date</h2>
+        </div>
+        <div class = "content">
+          <h6>In this lab you will be implementing 'date'.</h6>
+          For this one you should match exactly what the default date does.
+          <pre class = "terminal">man date</pre>
+        </div>
+      </div>
+    </div> -->
+    <!-- wc -->
+    <!-- <div class = "pad">
+      <div id = "time" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">wc</h2>
+        </div>
+        <div class = "content">
+          <h6>In this lab you will be implementing 'wc'.</h6>
+          wc - print newline, word, and byte counts for each file.
+          Just follow the format of the actual wc.
+          <pre class = "terminal">man wc</pre>
+        </div>
+      </div>
+    </div> -->
+    <!-- ediff -->
+    <!-- <div class = "pad">
+      <div id = "ediff" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">ediff</h2>
+        </div>
+        <div class = "content">
+          <h6>In this lab you will be implementing 'ediff'.</h6>
+          ediff - compare files line by line.
+          So if a user enters
+          <pre class = "terminal">ediff file1.txt file2.txt</pre>
+          and if file1.txt contained
+          <pre class = "terminal">
+a
+2
+c</pre>
+          and file2.txt contained
+          <pre class = "terminal">
+1
+2
+3</pre>
+          then the print out would be
+          <pre class = "terminal">
+<    a
+>    1
+<    c
+>    3</pre>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</div>

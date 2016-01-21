@@ -1,0 +1,30 @@
+<div ng-controller='ScheduleController'>
+	<!-- {{schedule}} -->
+	<div class = "row">
+		<div class = "large-3 columns show-for-large-up"><h2>Week</h2></div>
+		<div class = "large-3 columns show-for-large-up"><h2>Monday</h2></div>
+		<div class = "large-3 columns show-for-large-up"><h2>Wednesday</h2></div>
+		<!-- <div class = "large-2 columns show-for-large-up"><h2>Lab</h2></div> -->
+		<div class = "large-3 columns show-for-large-up"><h2>Friday</h2></div>
+	</div>
+	<div ng-repeat="week in schedule" class = "row" style = "padding-bottom:1%" >
+		<div class = "small-12 medium-12 large-3 columns">
+			<h3>{{week.week}}</h3>
+			<div style = "color: red" ng-bind-html="dontEscapeHtml(week.announcement)">
+			</div>
+		</div>
+		<div ng-repeat="day in week.schedule" class = "small-12 medium-12 large-3 columns">
+			<div class = "small-12 medium-12 columns hide-for-large-up"><h3>{{days[$index]}}</h3></div>
+			<div class="mdl-card mdl-shadow--2dp schedule-card" >
+				<div class="mdl-card__title" ng-style = "{'background-color': day.color}">
+					<h4 class="mdl-card__title-text overflow" style = "color: white;">{{day.title}}</h4>
+				</div>
+				<div class="mdl-card__actions mdl-card--border scrollable">
+					{{day.summary}}
+				</div>
+				<div class="mdl-card__actions mdl-card--border scrollable" ng-bind-html="dontEscapeHtml(day.resources)">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

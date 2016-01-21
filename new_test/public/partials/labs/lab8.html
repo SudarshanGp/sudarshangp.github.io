@@ -1,0 +1,161 @@
+<div class = "row" ng-controller = 'OverviewController'>
+  <div class="small-12 medium-12 large-8 large-centered columns">
+    <h1>Overworked Interns</h1>
+    <!-- <h2>DO NOT START LAB UNLESS TOLD TO DO SO! (WE MIGHT CHANGE THE SPECS)</h2> -->
+    <ul class="toc">
+      <h4>Contents</h4>
+      <a href="#lab8/#objectives">Learning Objectives</a>
+      <a href="#lab8/#setup">Setup</a>
+      <a href="#lab8/#backstory">Backstory</a>
+      <a href="#lab8/#job">Job</a>
+      <a href="#lab8/#testing">Testing</a>
+      <a href="#lab8/#grading">Grading</a>
+    </ul>
+    <!-- Learning Objectives -->
+    <div class = "pad">
+      <div id = "objectives" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Learning Objectives</h2>
+        </div>
+        <div class = "content">
+          <ul>
+              <li>Synchronization</li>
+              <li>Dining Philosophers</li>
+              <li>Messing With Interns</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Setup -->
+    <div class = "pad">
+      <div id = "setup" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Setup</h2>
+        </div>
+        <div class = "content">
+          <br/>
+          First update svn
+          <pre class = "terminal">
+cd ~/cs241
+svn up
+cd overworked_interns</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Backstory -->
+    <div class = "pad">
+      <div id = "story" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Backstory</h2>
+        </div>
+        <div class = "content">
+          <p>
+              You are creating a start up that allows companies to rent <del>code monkeys</del> interns for a project.
+              They are billed by the number of days it takes to complete the project.
+              The reason why companies want to rent interns is because they realized they do not need dedicated interns,
+              since they do not always have projects at hand (sometimes they are contemplating about life).
+              They came to the conclusion that a possible way of handling this dilemma is to simply overwork the interns
+              by having them work for 2 companies at a time.
+              This is where you come along.
+          </p>
+          <p>
+              Here is the scenario with the following rules.
+              Each of the companies practices pair programming, so you will need to find a way to schedule the interns
+              so that we can continue to bill each company as often as possible.
+              This means that work on a project can only be completed when the company has TWO interns assigned to it.
+              There are n companies and k interns in this scenario.
+              For some odd reason the ith company likes to work with intern i%k and (i+1)%k...
+              A company might decide to give the interns a break from the project,
+              in which case they are free to be assigned to another company that wants them and
+              won't be reassigned until said company gives them a break.
+          </p>
+          <p>
+              Your mentor has written a simulation of this scenario, but it does not work.
+              The mentor left some notes that read
+              "Dear intern, I have written a simulation of the 'intern for rent' program,
+              but sometimes the company grabs one intern, then waits for the second intern,
+              which wont be released until the first intern is given a break."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Your Job -->
+    <div class = "pad">
+      <div id = "job" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Your Job</h2>
+        </div>
+        <div class = "content">
+            <ol>
+                <li>Read main.c, bad_company.c, and company.h until you have a good sense of what the code is doing (Nothing will make senese until you do).</li>
+                <li>
+                    Read <a href = "https://github.com/angrave/SystemProgramming/wiki/Deadlock%2C-Part-1%3A-Resource-Allocation-Graph">Resouce Allocation Graphs</a>
+                    and
+                    <a href = "https://github.com/angrave/SystemProgramming/wiki/Deadlock%2C-Part-2%3A-Deadlock-Conditions">Deadlock Conditions</a>
+                    to have all the knowledge you will need for this assignment.
+                </li>
+                <li>
+                    Fill out questions.txt BEFORE you write any code
+                    (see the section on <a href="#lab8/#testing">testing</a> for details on gathering data).
+                </li>
+                <li>Overwrite good_company.c with your correct solution.</li>
+            </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testing -->
+    <div class = "pad">
+      <div id = "testing" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Testing</h2>
+        </div>
+        <div class = "content">
+          <h6>We provided you with a Makefile.</h6>
+          <p>
+              Typing
+              <pre class = "terminal">make</pre>
+              will create the "good_companies" and "bad_companies" executable.
+              For both the "good_companies" and "bad_companies" executable you can execute them with 2 required arguments.
+              <pre class = "terminal">./bad_companies 5 6</pre> will run the bad solution with 5 companies and 6 interns.
+          </p>
+          <p>
+              If you see something like this:
+              <pre>
+                  <code>
+Company 0 used our services for 2083 billable days.
+Company 1 used our services for 2164 billable days.
+Company 2 used our services for 2456 billable days.
+Company 3 used our services for 2826 billable days.
+Company 4 has finished working with us
+Company 4 used our services for 3733 billable days.
+
+Total Billable days : 13262
+                  </code>
+              </pre>
+              then the simulation terminated succesfully. This does not mean your solution is correct.
+              There may still be race conditions, so it it up to you to test your code throughly with all sorts of parameters.
+              If the simulator stops without billing the companies just hit CTRL+C.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grading -->
+    <div class = "pad">
+      <div id = "grading" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Grading</h2>
+        </div>
+        <div class = "content">
+            Your grade will be some linear combination of having a correct solution,
+            correctly answering the free response questions, and lab attendance.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

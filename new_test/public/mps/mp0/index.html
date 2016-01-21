@@ -1,0 +1,256 @@
+
+<html>
+  <head>
+
+    <title>Pointers Gone Wild!</title>
+
+    <style type="text/css">
+
+      body { font-family: arial; font-size: 12px; }
+      h2 { font-size: 24px; }
+      h3 { font-size: 22px; }
+      h4 { font-size: 16px; }
+      blockquote { border: dashed 1px black; padding-left: 3px; display: block; background-color: #dddddd;  font-family: courier; color: #000080;}
+      tt { color: #000080; }
+      #top
+      {
+          position: relative;
+          top: 60px;
+
+      }
+
+    </style>
+      <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <nav id="navigator" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <h3>Due: Monday, September 7th, 11:59pm</h3>
+</nav>
+  </head>
+  <body>
+  <div class="container" id ="top">
+
+    <h2 id="intro">Introduction</h2>
+    <div class="containter">
+    <p>
+      In CS 125, CS 225, and other classes, you have used various languages that are considered to be &quot;C based&quot;, but up to now you may have very limited experience in C programming.  This MP will provide a short programming
+      introduction to pointers, strings, and functions in C.
+    </p>
+
+    <p>
+      This machine problem will be divided up into two pieces. In
+      the first piece, you will be modifying functions originally
+      with errors such that the outputs match the given output. In
+      the second piece, you will need to write some code to call
+      some 'creatively defined' functions so that those functions
+      produce the desired output.
+    </p>
+
+    <p>
+      For this MP, you may modify:
+      <ul>
+        <li><tt>part1-functions.c</tt></li>
+        <li><tt>part2-main.c</tt></li>
+      </ul>
+
+      All other files will be replaced with new/different files for grading.  If you modify any other files for debugging purposes, please ensure you test your program with the original file.
+    </p>
+    </div>
+    <h2 id="task">What you must do...</h2>
+
+    <h4 id="task1">Part 1:</h4>
+    <div class="container">
+
+    <p>
+      There are erroneous/unimplemented functions
+      in <tt>part1-functions.c</tt>. Your task is to modify
+      functions according to comment above each function such that the
+      output of part1 looks exactly as follows:
+    </p>
+
+    <blockquote id="code_segment">
+      == one() ==<br />
+      3^2 + 4^2 = 25<br />
+      10^2 + 10^2 = 200<br />
+      == two() ==<br />
+      20 not passed!<br />
+      100 passed!<br />
+      == three() ==<br />
+      The value of p is: 4<br />
+      == four() ==<br />
+      The value is between zero and one.<br />
+      The value is not between zero and one.<br />
+      == five() ==<br />
+      x and y are equal.<br />
+      x and y are different.<br />
+      == six() ==<br />
+      4 == 4.000000<br />
+      432 == 432.000000<br />
+      == seven() ==<br />
+      a is a letter.<br />
+      a is not a letter.<br />
+      == eight() ==<br />
+      Hello<br />
+      == nine() ==<br />
+      The value of p is: 12.500000<br />
+      == ten() ==<br />
+      0 == 0?<br />
+      == eleven() ==<br />
+      Hello World!<br />
+      == twelve() ==<br />
+      0.000000 0.100000 0.200000 0.300000 0.400000 0.500000 0.600000 0.700000 0.800000 0.900000 <br />
+      == thirteen() ==<br />
+      0 10 40 90 160 250 360 490 640 810 <br />
+      == fourteen() ==<br />
+      orange and blue!<br />
+      ORANGE and blue!<br />
+      Orange and BLUE!<br />
+      orange and blue!<br />
+      == fifteen() ==<br />
+      You passed in the value of one!<br />
+      You passed in the value of two!<br />
+      You passed in some other value!<br />
+      == sixteen() ==<br />
+      Hello<br />
+      == seventeen() ==<br />
+      The radius of the circle is: 17.500000.<br />
+      The radius of the circle is: 10.000000.<br />
+      == eighteen() ==<br />
+      Result: 323<br />
+      Result: 2499<br />
+      == clear_bits() ==<br />
+      170<br />
+      0<br />
+      171<br />
+      0<br />
+      20<br />
+      0
+    </blockquote>
+    </div>
+    <h4>Part 2:</h4>
+    <div class="container">
+
+    <p>
+      We have pre-uploaded some files to your pointers_gone_wild svn directory, including <tt>part2-functions.c</tt>.  Inside <tt>part2-functions.c</tt>, you will see twelve different functions, including <tt>first_step()</tt> (re-printed below).
+    </p>
+    <blockquote id="code_segment">
+      void first_step(int value)<br />
+      {<br />
+      &nbsp; if (value == 81)<br />
+      &nbsp; &nbsp; printf("1: Illinois\n");<br />
+      }
+    </blockquote>
+
+    <p>
+      To complete Part 2, you must complete the program <tt>part2-main.c</tt> so that <tt>part2-main.c</tt> makes calls to all twelve functions in <tt>part2-functions.c</tt> such that they print their &quot;Illinois&quot; line. The struct data_t, the val_t Union and type_t enum are in the part2-functions.h header file. <br> When running
+      <tt>./part2</tt>, your output should look exactly like:
+    </p>
+
+    <blockquote id="code_segment">
+      1: Illinois<br />
+      2: Illinois<br />
+      3: Illinois<br />
+      4: Illinois<br />
+      5: Illinois<br />
+      6: Illinois<br />
+      7: Illinois<br />
+      8: Illinois<br />
+      9: Illinois<br />
+      10: Illinois<br />
+      11: Illinois<br/>
+      12: Illinois
+    </blockquote>
+    <b> Note: </b> <br/> The tricky_step problem in part2 attempts to allow for computations with the "+" and the "-" operators with different data types (Strings, Integers and Floats) <br/>
+  <u> <br/> It expects some implicit conversion between types such as: </u> <br/> <br/> <b>1) FLOAT +/- INT = FLOAT </b> ( 10.0 - 2 = 8.0 ) <br/> <b> 2) STRING + INT/FLOAT = STRING </b> ( "CS" + 241 = "CS241"  - Appending a integer/float to a string )
+  <br/> <b> 3) STRING - INT/FLOAT = ERROR </b> ( "CS241" - 241, ERROR is one of the enumerated types in part2-functions.h ) <br/>
+
+  <br/> <u> You may also make the following assumptions: </u>
+  <br/>
+  <br/> <b> 1) Any float or integer in the problem will not be longer than 4 digits. </b>
+  <br/> <b> 2) When a float is appended to a string, it is truncated to 2 decimal places. </b>
+ <br/> <b>  3) All string values in data_t that is returned by func must be malloc-ed in func as it will be attempted to be freed by tricky_step </b> 
+
+  <br/>
+
+  <br/> Before attempting the tricky_step problem, you will need to have a solid understanding of function pointers, structs and unions.
+  <br/>
+  <br/> <b> <u> Here are some resources that would help you understand them better: </u> </b>
+  <br/>
+  <br/> Function Pointers -  <a href="http://c.learncodethehardway.org/book/ex18.html"> http://c.learncodethehardway.org/book/ex18.html </a>
+  <br/> Structs - <a href=" http://www.tutorialspoint.com/ansi_c/c_structured_datatypes.htm"> http://www.tutorialspoint.com/ansi_c/c_structured_datatypes.htm </a>
+  <br/> Unions - <a href="http://www.tutorialspoint.com/cprogramming/c_unions.htm "> http://www.tutorialspoint.com/cprogramming/c_unions.htm </a>
+  <br/>
+  <br/> Also feel free to review <a href="https://github.com/angrave/SystemProgramming/wiki"> Angrave's crowd-sourced book  </a> <br/> <br/>
+
+
+    <p>
+      <span style="color: #800">
+        You should NOT edit the part2-functions.c file. In fact, when we grade your
+        program, we will replace the part2-functions.c file with a new version of
+        the file (and we'll change the &quot;Illinois&quot; string so printing out
+        &quot;Illinois&quot; in a for-loop will get you no credit).
+      </span>
+    </p>
+        </div>
+
+
+    <h2>Compile and Run</h2>
+    <div class="container">
+      To compile <tt>pointers_gone_wild</tt>, run:
+      <blockquote id="code_segment">
+        make clean<br />
+        make
+      </blockquote>
+
+      To run Part 1:
+      <blockquote id="code_segment">
+        ./part1
+      </blockquote>
+
+      To run Part 2:
+      <blockquote id="code_segment">
+        ./part2
+      </blockquote>
+    </div>
+
+    <h2>Grading, Submission, and Other Details</h2>
+    <div class="container">
+       <p>
+      Please fully read details on  <a href="https://wiki.cites.illinois.edu/wiki/display/undergradProg/Honor+Code">Grading and Academic Honesty</a>. These are shared between  all MPs in CS 241.
+    </p>
+    <p>
+      We will be using Subversion as our hand-in system this semester. Our grading system will checkout your most recent (pre-deadline) commit for grading. Therefore, to hand in your code, all you have to do is commit it to your Subversion repository.</a>.
+    </p>
+    <p>
+      To check out the provided code for pointers_gone_wild from the class repository, go to the directory you want your work to be downloaded to and type the following into the command console:
+      <blockquote>
+        svn co https://subversion.ews.illinois.edu/svn/fa15-cs241/NETID/pointers_gone_wild 
+      </blockquote>
+      where NETID is your University NetID. This will make a directory called pointers_gone_wild which has all pointers_gone_wild code in it.
+    </p>
+    <p>
+      To commit your changes to the repository type:
+      <blockquote>
+      svn ci -m "pointers_gone_wild submission"
+      </blockquote>
+    </p>
+    <p>
+      Your repository directory can be viewed from a web browser from the following URL:
+      <blockquote>
+        https://subversion.ews.illinois.edu/svn/fa15-cs241/NETID/pointers_gone_wild
+      </blockquote>
+      where NETID is your University NetID.
+      It is important to check that the files you expect to be graded are present and up to date in your svn copy.
+    </p>
+    <h2>Good luck!</h2>
+    </div>
+</div>
+
+  </body>
+
+</html>

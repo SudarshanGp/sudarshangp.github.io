@@ -1,0 +1,186 @@
+<div class = "row" ng-controller = 'OverviewController'>
+
+  <div class="small-12 medium-12 large-8 large-centered columns">
+    <ul class="toc">
+      <h4>Contents</h4>
+      <a href="#overview/#description">Course Description</a>
+      <a href="#overview/#skills">Skills Earned</a>
+      <a href="#overview/#resources">Resources</a>
+      <a href="#overview/#grading">Grading</a>
+      <a href="#overview/#autograder">Autograder Policy</a>
+      <a href="#overview/#integrity">Academic Integrity</a>
+    </ul>
+    <div class = "pad">
+      <div id = "description" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Course Description</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          A computer needs an operating system to manage its resources and provide support for common functions such as accessing peripherals.
+          There are two categories of "customers" that an operating system must support.
+          The first category is the community of users.
+          We have all used computers and you may recognize operating systems' functions such as creating folders (directories) and moving files around.
+          These are examples of operating system support for users.
+          User support is not the objective of this course.
+          This course addresses operating system support for the second category of customers; namely, the programmers.
+          Those are people who write code to execute on the computer.
+          When you write a program, it may have to interact with physical hardware (memory, flash storage, screen, network, etc.).
+          For example, you may want to get input from a keyboard or mouse, you may want to read some configuration file stored on disk, you may want to output data to a screen or printer, or you may want to access a remote server across a network.
+          The operating system presents common interfaces for programmers to perform these functions.
+          The operating system also provides useful abstractions such as "tasks" (also called processes), "threads", and "semaphores".
+          You can make the computer multitask by calling the operating system interface for creating new tasks or new threads.
+          You can make these tasks coordinate and synchronize by using operating system semaphores.
+          You can tell the computer the order in which you want tasks to be executed, which is called a scheduling policy.
+          Finally, you can manage computer memory by calling the operating system function for memory management.
+          System programming refers to writing code that tasks advantage of operating system support for programmers.
+          This course is designed to introduce you to system programming.
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+        </div>
+      </div>
+    </div>
+
+    <div class = "pad">
+      <div id = "skills" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #00bcd4">
+          <h2 class="mdl-card__title-text" style = "color: white">Skills Earned</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          By the end of this course, you should be proficient at writing programs that take full advantage of operating system support.
+          To be concrete, we need to fix an operating system and we need to choose a programming language for writing programs.
+          We chose the C language running on a Linux/UNIX operating system (which implements the POSIX standard interface between the programmer and the OS).
+          This pairing of C and UNIX/Linux is used heavily by software that must provide high performance and low-level control of the program's execution.
+          Hence, this course introduces you to systems programming via the specific case of C over UNIX.
+          By the end of the course you should be proficient with this programming environment and should be able to write non-trivial pieces of software from web server code to your own multiplayer Internet games.
+          <!-- More specifically, after taking this course you should be able to accomplish the following: -->
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          <!-- <ul>
+            <li>Identify the basic components of an operating system, describe their purpose, and explain how they function.</li>
+            <li>Write, compile, debug, and execute C programs that correctly use system interfaces provided by UNIX (or a UNIX-like operating system).</li>
+            <li>Be familiar with important UNIX system calls and invoke them correctly from within C programs.</li>
+            <li>Describe the difference between programs, processes, and threads.</li>
+            <li>Explain the meaning and purpose of process control blocks and other mechanisms that the operating system uses to implement the process and thread abstractions.</li>
+            <li>Write, compile, debug, and execute C programs that create, manage and terminate processes and threads on UNIX.</li>
+            <li>Define concurrency and explain the problems that may arise because of concurrent execution of multiple processes or threads. Explain how these problems can be avoided. Write code that avoids these problems.</li>
+            <li>Define semaphores, mutexes, and other synchronization primitives, explain their purpose, and describe their internal implementation.</li>
+            <li>Describe possible problems that arise from improper use of synchronization primitives (such as deadlocks) and present their solutions.</li>
+            <li>Write, compile, debug, and execute C programs that use UNIX synchronization primitives.</li>
+            <li>Describe operating system scheduling and use UNIX interfaces to set and modify scheduling policy parameters.</li>
+            <li>Define UNIX signals and signal handlers, and describe their use.</li>
+            <li>Write, compile, debug, and execute C programs with processes and threads that interact by invoking and catching signals.</li>
+            <li>Describe, configure, and use operating system timers and clocks.</li>
+            <li>Describe the concepts of I/O devices, files, directories.</li>
+            <li>Explain the internal implementation of files systems and operating system I/O.</li>
+            <li>Write, compile, debug, and execute C programs that use files and I/O on UNIX.</li>
+            <li>Describe the machine memory hierarchy, describe its components such as caches and virtual memory, and explain memory management mechanisms pertaining to these components such as paging and segmentation.</li>
+            <li>Write, compile, debug, and execute C programs that make use of memory management functions.</li>
+            <li>Explain the concept of DMA.</li>
+            <li>Describe the protocols (such as TCP and IP) and interfaces (such as sockets) used for communication among different computers.</li>
+            <li>Write distributed applications that communicate across a network.</li>
+
+          </ul> -->
+        </div>
+      </div>
+    </div>
+
+    <div class = "pad">
+      <div id = "Books and videos" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #009688">
+          <h2 class="mdl-card__title-text" style = "color: white">Resources</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          We will heavily rely on the <a href="https://github.com/angrave/SystemProgramming/wiki">CS 241 Crowd-Sourced Wikibook</a>. <br/><br/>
+          Angrave&apos;s mini searchable video-introduction and playful <em>system programming-in-the-browser</em> environment is at <br><a target="_blank" href="http://cs-education.github.io/sys/">cs-education.github.io/sys/</a>  (Firefox and Chrome recommended)<br/><br/>
+
+          No formal textbook is required but if you really want to buy some books we recommend the following custom book Angrave put together in 2007:
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          Introduction to Systems Concepts and Systems Programming <br/>
+          University of Illinois Custom Edition <br/>
+          Copyright 2007 by Pearson Custom Publishing <br/>
+          ISBN 0-536-48928-9
+        </div>
+      </div>
+    </div>
+
+    <div class = "pad">
+      <div id = "grading" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #009688">
+          <h2 class="mdl-card__title-text" style = "color: white">Grading</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          The following is subject to minor changes.
+          <pre>
+            Final Exam : 25%
+            Midterm : 5%
+            Quizzes: 30%
+            Programming Assignments: 26%
+            Lab Section + Homework + Other: 14%
+          </pre>
+          <br/>
+          Course scores:  We publish the following thresholds: 92: A-   82: B-   72: C- <br/><br/>
+          The programming assignments will include late regrades with a multiplier of </tt>0.8</tt>. These are generally 24 and 48 hours after the original deadline. If grade results are significantly postponed due to an internal publishing or IT problem, then regrades may be extended to the following day.
+          There are computerized quizzes approximately every other week. There will be one graded midterms;
+          The will be also be &quot;practice midterm&quot; where you can practice system programming problems in the exam environment.
+          The quizzes and midterms will be in the basement of DCL and you will be asked to register for a time slot that works for you. The signup link is <a href="https://edu.cs.illinois.edu/testcenter/" target="_blank">here</a> (Chrome recommended).
+          For grading we will drop your lowest quiz score and lowest lab section. Sickness/ vacation / sleep - whatever - we don&apos;t care.
+          Unless exceptions have been arranged with the course admin or Director of Undergrad studies: Miss 3+ sections or 3+ quizzes is automaticaully a failing grade<br/><br/>
+
+          The 3 hour handwritten Final exam is comprehensive and will test all CS241 topics including programming topics covered in the MP and programming challenges.
+          Do not book your flights until the exam date is known.
+          Early exams will not be offered.
+          Conflict final exams will be offered if you have 3 exams in a 24 hour period or you have an exam in another, smaller enrollment course at the same time.<br/>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          Grading issues should be raised with your TA during section, or posted privately on Piazza.
+        </div>
+      </div>
+    </div>
+
+    <div class = "pad">
+      <div id = "autograder" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #009688">
+          <h2 class="mdl-card__title-text" style = "color: white">Autograding Policy</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          <p>Autogrades do not necessarily represent the final grading conditions. We reserve the right to change test cases and test conditions in order to better test your code against the specifications of the assignment.</p>
+          <p>Autogrades do not necessarily represent your final grade on an assignment. They are only intended to give you feedback on the correctness of your code under current grading conditions. The scores and points in the autograde do not represent the final distribution of points.</p>
+          <p>If you have issues with the autograder, make a post on Piazza. However, if the problem is in your code and not the autograder, we do not guarantee that we will tell you exactly why you didn't pass. We expect that you should test your own code in order to determine under what conditions it fails. You should not rely on the autograder as the only method of testing your code's correctness.</p>
+          <p>Unfortunately, we cannot guarantee a schedule for autograder runs due to the fact that the course (and thus the autograder) is still under construction. In the extreme cases, we may not even be able to run the autograder before the deadline. For the most part, we will attempt to run them roughly nightly at midnight. We may also run them at other times if we feel there was not enough feedback due to previously missed runs or other reasons. We will never take autograde requests.</p>
+          <p>Late autograding will serve as feedback for those attempting to meet the late deadlines. For every MP, there will be 2 late deadlines, one at +24 hours after due date and one at +48 hours after due date. Both will be for 80% credit (as in we will multiply your score with 80%). We will take the max of the deadline attempt and two late deadline attempts. We will guarantee one autograde at the due date and one autograde at +24 hours after the due date to serve as feedback for each late deadline. If these autogrades are late or delayed in some way (several hours or more), then we will push the late deadlines back in order to guarantee roughly one day of time between feedback and the late deadline. This extension and guaranteed feedback only applies to late deadlines.</p>
+          <p>The late policy only applies to MPs. Additionally, Labs are unlikely to have autogrades at all for the same reason we can't guarantee an autograder schedule. However, we will still attempt to run early autograde runs for labs if we feel it is necessary and we are capable of doing so.</p>
+          <p>I know some of these policies are not very friendly, but this course is under significant rework behind the scenes and we do not want to guarantee more than we can provide.</p>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+        </div>
+      </div>
+    </div>
+
+    <div class = "pad">
+      <div id = "integrity" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #009688">
+          <h2 class="mdl-card__title-text" style = "color: white">Academic Integrity</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          Cheating is taken very seriously in CS 241 and all cases of cheating will be brought to the University, your department, and your college.
+          You should understand how <a href="https://wiki.cites.illinois.edu/wiki/display/undergradProg/Honor+Code">academic integrity</a> applies to Computer Science courses. <br/><br/>
+
+          If you are caught cheating on an assignment and it was your <strong>first</strong> offense then you will lose all points for the assignment <strong>and</strong> your final course grade will be lowered by one whole letter grade.<br/>
+          If you are caught cheating on an assignment and it was your <strong>second</strong> offense then you will automatically fail the course.<br/>
+          <strong>Third</strong> offenses and onward do not really matter since you have already failed the course.<br/><br/>
+          Rule of Thumb - If at any point you submit an assignment that does not reflect your understanding of the material, then you have probably cheated.<br/><br/>
+
+          Additionally, you may not publish your solutions or leave them in 'plain view' thereby leaving your programs open to copying, which constitutes cheating.
+          If your code (or a variation of it) is found publicy accesible, then you will receive a letter grade reduction for each assignment.
+          For example, if we find your code on GitHub for one MP then you will receive a letter grade reduction. 2 letter grades for 2 assignments and so on.
+          If you are confused on what it means to be 'publicly accessible', then do not put your code anywhere besides https://subversion.ews.illinois.edu and take measures to ensure that nobody can copy your code, so that you are not charged with a violation.
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          We want you to get the most out your education and cheating not only affects your peers but also you.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

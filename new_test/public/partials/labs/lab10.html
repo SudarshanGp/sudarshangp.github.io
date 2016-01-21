@@ -1,0 +1,258 @@
+<div class = "row" ng-controller = 'OverviewController'>
+  <div class="small-12 medium-12 large-8 large-centered columns">
+    <h1>Mad Mad Access Pattern</h1>
+    <!-- <h2>DO NOT START LAB UNLESS TOLD TO DO SO! (WE MIGHT CHANGE THE SPECS)</h2> -->
+    <ul class="toc">
+      <h4>Contents</h4>
+      <a href="#lab10/#objectives">Learning Objectives</a>
+      <a href="#lab10/#setup">Setup</a>
+      <a href="#lab10/#backstory">Backstory</a>
+      <a href="#lab10/#struct">Struct</a>
+      <a href="#lab10/#provided">Provided Code</a>
+      <a href="#lab10/#mission">Mission</a>
+      <a href="#lab10/#usage">Usage</a>
+      <a href="#lab10/#error">Error Cases</a>
+    </ul>
+
+    <!-- Learning Objectives -->
+    <div class = "pad">
+      <div id = "objectives" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Learning Objectives</h2>
+        </div>
+        <div class = "content">
+          <ul>
+              <li>Files</li>
+              <li>fseek()</li>
+              <li>fread()</li>
+              <li>Memory Mapped Files</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Setup -->
+    <div class = "pad">
+      <div id = "setup" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Setup</h2>
+        </div>
+        <div class = "content">
+          <br/>
+          First update svn
+          <pre class = "terminal">
+cd ~/cs241
+svn up
+cd mad_mad_access_pattern</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Backstory -->
+    <div class = "pad">
+      <div id = "backstory" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Backstory</h2>
+        </div>
+        <div class = "content">
+            <p>You've landed an internship at <em>Zing!</em>, a search engine
+start-up.  Your first project is to develop a keyword advertisement
+inventory tool.</p>
+
+<p>Advertisers can "buy" keywords such that their ad is shown whenever
+a user does a search that contains one of their keywords. For example,
+if a user searches for "stapler", they will see ads for an office supply
+company who bought that keyword.</p>
+
+<p> Before buying a keyword, advertisers want to know, "How much will this
+cost me?"  To compute that, they'll need to know how often the keyword
+is searched for, and how valuable the word is.  For example "how" is
+a very common word but has little value. "Donate" is less common but
+highly valuable, because a user searching for "donate" is probably willing
+to do so. </p>
+
+<p>The intern before you scanned through a large volume of search logs
+to determine the frequency and value of each word.  Your job is to
+perform efficient searches on the data file she created. This file is
+expected to grow to be very large, larger than will fit in memory, so
+you will need to access it without reading it all into memory.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Struct -->
+    <div class = "pad">
+      <div id = "struct" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Struct</h2>
+        </div>
+        <div class = "content">
+            <p>The file is structured like a binary tree, where each tree node
+is an instance of this structure:</p>
+<pre class="terminal">
+typedef struct {
+  uint32_t left_child;  // offset of node containing left child
+  uint32_t right_child; // offset of node containing right child
+
+  // Offsets are relative to the beginning of the file.
+  // An offset of zero means the child does not exist.
+
+  uint32_t count;  // number of times the word occurs in the data set
+  float price;     // price of the word
+
+  char word[0];    // contents of the word, null-terminated
+} BinaryTreeNode;
+</pre>
+
+<p>The first 4 bytes of the input file are the letters "BTRE". Any
+file which does not start with these 4 bytes is an invalid data file.
+The root node is stored at offset 4 in the file. Each uint32_t and
+float is stored in little-endian format (the same as the processors
+your VMs use, so no conversion will be necessary). "word" is an array
+of ASCII characters at the end of each structure, and it is a
+null-terminated string.  There is no limit on the length of a word in
+the file or the length of the words your program will look up. Because of this,
+you must malloc more than just sizeof(BinaryTreeNode) since sizeof() will not
+correctly determine the length of word.</p>
+
+<p>
+Below is a diagram depicting the structure of the first few nodes of
+sample.data. All offsets are relative to the beginning of the file. There is a
+much more thorough description of sample.data in tree.h.
+</p>
+
+<img src="./data/resources/241_memory_mapped_madness_diagram.png" style = "display: block; margin: 0 auto;"/>
+
+<p>Remember the properties of a binary tree: if a node has a left
+child, that child's value is less than the node. If it has a right child,
+that child's value is greater than the node.  In other words:</p>
+<pre class="terminal">
+BinaryTreeNode *node = ...a node from the file...
+
+if (node->left_child) {
+  BinaryTreeNode *left = ...load node at node->left_child...
+  assert(strcmp(left->word, node->word) < 0);
+}
+
+if (node->right_child) {
+  BinaryTreeNode *right = ...load node at node->right_child...
+  assert(strcmp(right->word, node->word) > 0);
+}
+</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Provided -->
+    <div class = "pad">
+      <div id = "provided" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Provided</h2>
+        </div>
+        <div class = "content">
+            You'll be given:
+<ul>
+<li> tree.h - contains the struct definition above and a detailed description
+     of the data in sample.data
+<li> Makefile - the makefile you should use to build lookup1 and lookup2
+<li> lookup_reference - a reference implementation of lookup1
+<li> sample.data - a small file containing the words "sample",
+     "word", "list", "for", "this", and "program"
+<li> large.data - an 8MB file containing many words (you'll need to run 'make large.data' to download it).
+</ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission -->
+    <div class = "pad">
+      <div id = "mission" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Mission</h2>
+        </div>
+        <div class = "content">
+            <p>Make two versions of your program. Both should produce the
+same results, but using different file access methods.</p>
+
+<h3> Version 1: fseek / fread</h3>
+<p>When reading a node from the file, use <b>fseek()</b> to jump to the
+correct posistion and read the node with <b>fread() and/or fgetc()</b>.</p>
+
+<p>Put the code for this in lookup1.c. You will have to make lookup1.c from
+scratch yourself since we did not deploy it to you.</p>
+
+<h3> Version 2: mmap</h3>
+<p>Use <b>mmap()</b> to map the entire file into memory without
+reading the entire file. When reading a node from the file, use
+pointer arithmetic to jump to the correct position and read the node
+using regular pointer dereferencing.</p>
+
+<p>Put the code for this in lookup2.c. You will have to make lookup2.c from
+scratch yourself since we did not deploy it to you.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usage -->
+    <div class = "pad">
+      <div id = "usage" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Usage</h2>
+        </div>
+        <div class = "content">
+            <h3> Sample usage </h3>
+<pre class="terminal">
+lookup1 &lt;data_file&gt; &lt;keyword&gt; [&lt;keyword&gt; ...]
+lookup2 &lt;data_file&gt; &lt;keyword&gt; [&lt;keyword&gt; ...]
+
+% ./lookup1 sample.data list sample werd
+list: 12 at $0.04
+sample: 25 at $10.60
+werd not found
+
+% ./lookup2 sample.data list sample werd
+list: 12 at $0.04
+sample: 25 at $10.60
+werd not found
+</pre>
+            <p>Nota Bene: The word "werd" is not found, since it is mispeled</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error cases -->
+    <div class = "pad">
+      <div id = "error" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Error Cases</h2>
+        </div>
+        <div class = "content">
+            Error cases:
+            <ul>
+<li> If run with less than 2 arguments, your program should print an error
+  message describing the arguments it expects and exit with error code 1.
+<li> If the data file cannot be read or the first 4 bytes are not
+  "BTRE", print a helpful error message and exit with error code 2.
+</ul>
+            <p>
+                For each word that is found, print its count and its price, where the
+                price is always printed with exactly two digits to the right of the decimal
+                point.
+            </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grading -->
+    <div class = "pad">
+      <div id = "grading" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Grading</h2>
+        </div>
+        <div class = "content">
+            Your grade will be some linear combination of having a correct solution and attending lab.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,695 @@
+<!doctype html>
+<!--
+Material Design Lite
+Copyright 2015 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License
+-->
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>MP4: Password Cracker</title>
+
+		<!-- Add to homescreen for Chrome on Android -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+		<!-- Add to homescreen for Safari on iOS -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Material Design Lite">
+		<link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+		<!-- Tile icon for Win8 (144x144 + tile color) -->
+		<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+		<meta name="msapplication-TileColor" content="#3372DF">
+
+		<link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="material.min.css">
+		<link rel="stylesheet" href="styles.css">
+		<style>
+			.big-code-block {
+				border: 1px solid #222;
+				padding: 15px;
+				background-color: #fdfdfd;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+			<header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+				<div class="mdl-layout__header-row">
+					<span class="mdl-layout-title">Part 1 Due: <strong>Monday, October 19</strong> at <strong>11:59 p.m.<br></strong>Part 2 Due: <strong>Monday, October 26</strong> at <strong>11:59 p.m.</strong> </span>
+				</div>
+			</header>
+
+			<div class="demo-ribbon"></div>
+			<main class="demo-main mdl-layout__content">
+				<div class="demo-container mdl-grid">
+					<div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+					<div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+						<div class="demo-crumbs mdl-color-text--grey-500">
+							<a href="https://courses.engr.illinois.edu/cs241/">CS 241</a> &gt; <a href="https://courses.engr.illinois.edu/cs241/#/mp">Machine Problems</a> &gt; <a href="#">Password Cracker</a>
+						</div>
+
+<h1> Password Cracker MP </h1>
+
+<h3> I forgot my password! </h3>
+<p>
+As the head system administrator at UI-Forgetful, 90% of your work
+is spent dealing with &quot;I forgot my password&quot; emails.
+Nobody wants to learn a new password, so rather than resetting your
+user's passwords, you decided to help them out by figuring
+out what their old passwords were.
+</p>
+
+<!--
+Speaking of password cracking accelerated by knowing the password prefix...
+Richard Feynmann liked to tell the story of how he cracked into safes
+containing the most dangerous information in the world while he was at
+Los Alamos Laboratory working on the development of the atomic
+bomb. ("Surely You're Joking Mr. Feynman!", Richard P. Feynman) He
+would visit other researchers' offices when their safes were open and
+surreptitiously jiggle the handle of their safes to determine the
+first couple numbers of the combination. His underhanded hobby became
+quite useful when papers were needed from safes belonging to
+researchers who happened to be out of town at the time.
+-->
+
+
+<p>
+The Linux machines you manage don't store
+the passwords in plain text. They're stored as a <b>hash</b> of the password.
+(If you're curious, take a look at the <code>/etc/shadow</code> file.
+You'll need root permissions.)
+</p>
+
+<p>
+A hash is a one-way operation. Given the hash of a user's password, there is
+no easy way to recover the password. However, if you're willing to burn
+some CPU time, you can do a brute-force attack: try every possible password
+until you find one that hashes to the same string.
+</p>
+
+<p>
+To hash a password, use the <code>crypt_r()</code> function.
+<code>crypt_r()</code> will hash the given string and store the
+results in a <code>struct crypt_data</code> buffer that you pass to
+it. <b>Note:</b> the first time you use a <code>struct
+crypt_data</code> buffer with
+<code>crypt_r()</code>, it is important to mark the buffer as uninitialized
+by setting the data member <code>"initialized"</code> to 0.
+For example:
+</p>
+
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">struct crypt_data cdata;
+cdata.initialized = 0;
+
+const char *hashed = crypt_r("example1", "xx", &cdata);
+printf("hash of 'example1' = %s\n", hashed);
+
+hashed = crypt_r("example2", "xx", &cdata);
+printf("hash of 'example2' = %s\n", hashed);
+</code>
+</pre>
+
+
+This code will print:
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">hash of 'example1' = xxPXiOTQGgNxc
+hash of 'example2' = xx96r6/l1aOi.
+</code>
+</pre>
+
+<p>The string returned by <code>crypt_r()</code> is stored inside the
+<code>struct crypt_data</code> structure, and does not need to be
+deallocated.</p>
+
+<p><em>What is the &quot;xx&quot; argument? </em>  It's called the
+  <b>salt</b>. It 'flavors' the hash so that even if you hash the same
+  string, if the salt is different the hash result will be different.
+  This is done to prevent users with the same password from having
+  identical password hashes.  Fun story: one of your TA's worked at a
+  well-known internet company, and for a while that company was not
+  setting a salt value when hashing customer passwords. With a quick
+  scan of the customer database, it was apparent that the most common
+  password used by customers was the name of the company.
+</p>
+
+<p>
+  For this assignment, don't create a unique salt - just use "xx" for
+  the value of the salt argument in every call to crypt_r().
+</p>
+
+
+<h3> I remember part of it... </h3>
+
+<p>It would take a long time to try every possible password, so when
+a user tells you they forgot their password, you always ask them,
+&quot;How much of the password do you remember?&quot;</p>
+
+Your users are very consistent. They always remember:
+<ul>
+<li> The first few letters in their password
+<li> The total length of the password.
+</ul>
+<p>For example, a user might say, &quot;It starts with 'hello', and it's a
+total of 8 letters.&quot;
+</p>
+
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">hello...
+12345678
+</code>
+</pre>
+
+<p>Users are also terribly uncreative at UI-Forgetful, and their passwords
+<b>contain only lowercase letters</b>.
+
+<p>That's a good head start. You only need to find 3 missing letters.
+That's just 26^3, or 17,576 combinations to test.</p>
+
+<p>You look up their hashed password in the <code>/etc/shadow</code> file,
+and find that their hashed password is <code>&quot;xxsczBXm6z4zA&quot;</code>.
+All you need to do is try every possible set of letters in the missing
+characters in their password. For example: </p>
+
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">known: hello...
+
+target hash: xxsczBXm6z4zA
+
+<b>Password     Hash</b>
+helloaaa     xxtDXGaGbU2Mw
+helloaab     xxm/e8KoZoEK.
+helloaac     xxC4UjY9eNri6
+...
+helloyot     xxnzydPlL.SKE
+helloyou     xxsczBXm6z4zA
+</code>
+</pre>
+
+<p>Aha, success!  The hash of &quot;helloyou&quot; is &quot;xxsczBXm6z4zA&quot;,
+so their password is &quot;helloyou&quot;!</p>
+
+<h3> Putting it into production </h3>
+
+<p>Since you get so many requests to recover passwords, you decide to
+make a tool to crack them. Each day, you create a file containing all
+the passwords that need cracking. Just before you leave work, you start
+your program working on the file.</p>
+
+<h4> Input </h4>
+<p>Each line of the file contains:</p>
+<ol>
+<li> Username (1-8 characters)
+<li> Hashed password (13 characters)
+<li> Known part of password plus periods representing the unknown
+     characters (1-8 characters, contains 0-8 lowercase letters followed
+     by 0-8 periods)
+</ol>
+
+<p>These three fields are separated by a single space. For example:</p>
+
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">alice xxQSTJ2Ww.ywY sys....
+bob xxt1Aco6oM3Mg ui....
+charlie xxgCpPNrdWRYs big.....
+</code>
+</pre>
+
+<p>If an input line is not in this format, the behavior of your program
+is undefined.
+<em>Although if an invalid input line is encountered, it would be nice
+to output a helpful error message to stderr and ignore the line.</em> Please note that,
+since the behavior is undefined, we will not grade you with invalid inputs.
+</p>
+
+<p>When multiple lines are provided, treat every line as an independent password
+cracker task. For example, if you receive the input:</p>
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">alice xxQSTJ2Ww.ywY sys....
+alice xxQSTJ2Ww.ywY sys....
+alice xxQSTJ2Ww.ywY sys....
+</code>
+</pre>
+
+<p>The password for the user alice should be cracked 3 times, not cracked once
+and saved somewhere. In other words, don't worry about duplicate users,
+duplicate password hashes, or duplicate password prefixes in the input file</p>
+
+<h3> Trying every possibility </h3>
+
+<p>How can you iterate through every possible password with a given
+prefix?  It's very similar to the process of counting up with
+integers. Start by incrementing the least significant digit. When it
+hits the maximum digit value, the next increment will reduce it to zero and
+increment the next more significant digit.  For example:</p>
+
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">1000 + 1 = 1001   (increment the 10^0 digit)
+1001 + 1 = 1002   (increment the 10^0 digit)
+1009 + 1 = 1010   (increment the 10^1 digit, reset the 10^0 digit)
+1010 + 1 = 1011   (increment the 10^0 digit)
+1999 + 1 = 2000   (increment the 10^3 digit, reset the 10^2, 10^1, and 10^0 digits)
+</code></pre>
+
+<p>To save you some time, we've provided a function for you that implements
+this. See the <code style="code-block">incrementString()</code> function in <code style="code-block">common.c</code>.
+
+<h3> Version 0: Single Threaded </h3>
+
+<p>You've been given a single-threaded version of the password cracker,
+<code style="code-block">cracker0.c</code>. It reads lines in the format described above
+from standard input and attempts to crack each of the passwords.
+</p>
+
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">./cracker0 < cracker0.in
+</code>
+</pre>
+
+
+<b>Sample input file</b>
+
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">donna xxC4UjY9eNri6 hello...
+eric xxqJ7cKzV3v4E zip.....
+francie xxGGPN89YLcGY cham....
+george xxq5aBqiB66j2 xz....
+helen xxhx0AsVpMTMU sysx....
+inigo xxHUf9zUctXNA miss....
+</code></pre>
+
+<b>Expected output</b> (the timing values may vary, but everything else
+should match exactly)
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">Password for donna is helloaac (3 hashes in 0.00 seconds)
+Password for eric is zipaaazz (676 hashes in 0.00 seconds)
+Password for francie not found (456976 hashes in 1.51 seconds)
+Password for george is xzzzzy (456975 hashes in 1.52 seconds)
+Password for helen is sysxpert (266806 hashes in 0.88 seconds)
+Password for inigo is missudad (353552 hashes in 1.16 seconds)
+Total time: 5.07 seconds.
+</code></pre>
+
+<h3> Version 1: Thread pool (Due at the end of week 1, 50% of final grade) </h3>
+
+<p> Use multiple threads to speed up the password processing.  The
+main thread will <b>start up a pool of worker threads, then read lines
+of input from standard input</b>. Each line will be turned into a task
+that is added to a task queue. The worker threads will pull one task
+at a time from the task queue and process the task. When a worker
+thread starts processing a task, it will print the username of the
+task.</p>
+
+<p>When a worker thread finishes a task, print the same output as in
+Version 0, but prefix each line with the index of the thread, where the
+first worker thread is index 1.  The time the thread reports should be
+the amount of CPU time the thread spent cracking that password, not
+wall clock time.  Use <code>getThreadCPUTime()</code>, declared in
+<code>common.h</code>.
+</p>
+
+<p>
+When the main thread reaches the end of the input stream (EOF, which you can
+send manually with CTRL-D), it will add a special "poison pill" task to the task
+queue.  When a thread receives that task, it will put the task back on the queue
+(so other threads will see it), and then exit.  It doesn't matter how you
+designate a task as the poison pill. <b>Make sure you don't exit until an EOF is
+read! The worker threads should all keep running, waiting for an input, until
+the EOF is read.</b>
+</p>
+
+<p>After all the worker threads have exited, the main thread will
+print:</p>
+<ul>
+<li> Number of successful and unsuccessful password cracks
+<li> Wall clock time since the program was started (via <code>getTime()</code>
+     in <code>common.h</code>)
+<li> CPU time used (a sum of the CPU time used in all threads).
+<li> Proportion of CPU time to wall clock time.
+</ul>
+
+<p>Be sure to use thread-safe synchronization any time a thread accesses
+a variable that is modified by another thread.</p>
+
+<p><b> This is a good time to check that you're using <code>crypt_r()</code>,
+not <code>crypt()</code>. </b>  <em>Why is this important?</em></p>
+
+<p>Put your code for version 1 in "cracker1.c".  Its executable will
+be "cracker1". Put any code you want to share with the other versions in
+"common.h" or "common.c", as appropriate. Hint: You may want to use
+your queue from lab! (stick that code in common.c and common.h)</p>
+
+<p>To help you with edge cases, we've provided a compiled solution for part1,
+named <code>cracker1_reference</code></p>
+
+<p><b>Files used for grading</b></p>
+<ul>
+    <li> <code>common.c</code> </li>
+    <li> <code>common.h</code> </li>
+    <li> <code>cracker1.c</code> </li>
+</ul>
+
+<p>By default, create 4 worker threads. If a command line argument is supplied
+to the program, use that as the number of worker threads rather than the
+default. If the command line argument is not a positive
+integer or there are more than one arguments, print a helpful error
+message and exit.</p>
+
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">./cracker1 [thread_pool_size]  <  password_file.txt
+</code>
+</pre>
+
+<p><b>Expected output for the sample input above</b><br>
+(The times, CPU usage, and the order in which the threads output their result may
+vary. The rest should match exactly.)</p>
+
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">Thread 1: Start donna
+Thread 4: Start francie
+Thread 3: Start george
+Thread 1: Password for donna is helloaac (3 hashes in 0.00 seconds)
+Thread 1: Start helen
+Thread 2: Start eric
+Thread 2: Password for eric is zipaaazz (676 hashes in 0.00 seconds)
+Thread 2: Start inigo
+Thread 1: Password for helen is sysxpert (266806 hashes in 1.05 seconds)
+Thread 2: Password for inigo is missudad (353552 hashes in 1.32 seconds)
+Thread 4: Password for francie not found (456976 hashes in 1.65 seconds)
+Thread 3: Password for george is xzzzzy (456975 hashes in 1.75 seconds)
+5 passwords recovered, 1 failed.
+Total time: 1.74 seconds.
+Total CPU time: 5.77 seconds.
+CPU usage: 3.31x
+</code></pre>
+
+<p>When run with 2 threads:</b>
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">./cracker1 2 < cracker.in
+</code></pre>
+
+<p><b>Expected output</b></p>
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">Thread 2: Start donna
+Thread 1: Start eric
+Thread 2: Password for donna is helloaac (3 hashes in 0.00 seconds)
+Thread 2: Start francie
+Thread 1: Password for eric is zipaaazz (676 hashes in 0.00 seconds)
+Thread 1: Start george
+Thread 2: Password for francie not found (456976 hashes in 1.64 seconds)
+Thread 2: Start helen
+Thread 1: Password for george is xzzzzy (456975 hashes in 1.66 seconds)
+Thread 1: Start inigo
+Thread 2: Password for helen is sysxpert (266806 hashes in 0.93 seconds)
+Thread 1: Password for inigo is missudad (353552 hashes in 1.26 seconds)
+5 passwords recovered, 1 failed.
+Total time: 2.92 seconds.
+Total CPU time: 5.49 seconds.
+CPU usage: 1.88x
+</code></pre>
+
+<!-- <b>For important grading information, see the ThreadSanitizer section at the bottom of the -->
+<!-- document</b> -->
+
+
+<h3> Version 2: Parallelize each task (Due at the end of week 2, 50% of final grade) </h3>
+
+<p>While reading through your personal emails, the NSA learned about
+your password cracker and decided it was threat to national security.
+So they hired you away from UI-Forgetful with threats of imprisonment
+and a large salary increase.</p>
+
+<p>Your first task at your new job is to crack larger passwords faster.
+Version 1 works great when there is a long list of passwords that
+need cracking in parallel, but it's no faster than version 0 when
+there's one really hard password that needs cracking.</p>
+
+<p>For version 2, you'll have a pool of threads, but rather than
+assigning one thread to each password task, all the threads will work
+in parallel on each password task.</p>
+
+<h4>Sample Input</h4>
+<pre class="big-code-block"><code class="code-block" style="white-space: pre !important">maude xxEe0WApyDMcg a......
+jesse xxsJNywggi0lA za......
+francie xxGGPN89YLcGY cham....
+</code></pre>
+
+<h4>Sample Output</h4>
+<pre class="big-code-block"><code class="code-block" style="white-space: pre !important">Start maude
+Thread 2: Start maude at 77228944 (agnaaaa)
+Thread 4: Start maude at 231686832 (atnaaaa)
+Thread 1: Start maude at 0 (aaaaaaa)
+Thread 3: Start maude at 154457888 (anaaaaa)
+Thread 1: Stop after 308332 iterations (found)
+Thread 3: Stop after 327747 iterations (cancelled)
+Thread 4: Stop after 337977 iterations (cancelled)
+Thread 2: Stop after 318970 iterations (cancelled)
+Password for maude is aaarocx (1293026 hashes in 1.72 seconds)
+Total CPU time: 6.41 seconds.
+CPU usage: 3.72x
+
+Start jesse
+Thread 3: Start jesse at 154457888 (zanaaaaa)
+Thread 4: Start jesse at 231686832 (zatnaaaa)
+Thread 1: Start jesse at 0 (zaaaaaaa)
+Thread 2: Start jesse at 77228944 (zagnaaaa)
+Thread 2: Stop after 945682 iterations (found)
+Thread 4: Stop after 968171 iterations (cancelled)
+Thread 3: Stop after 966968 iterations (cancelled)
+Thread 1: Stop after 911765 iterations (cancelled)
+Password for jesse is zagpbuyj (3792586 hashes in 3.24 seconds)
+Total CPU time: 12.77 seconds.
+CPU usage: 3.94x
+
+Start francie
+Thread 4: Start francie at 342732 (chamtnaa)
+Thread 3: Start francie at 228488 (chamnaaa)
+Thread 1: Start francie at 0 (chamaaaa)
+Thread 2: Start francie at 114244 (chamgnaa)
+Thread 4: Stop after 114244 iterations (end)
+Thread 3: Stop after 114244 iterations (end)
+Thread 2: Stop after 114244 iterations (end)
+Thread 1: Stop after 114244 iterations (end)
+Password for francie not found (456976 hashes in 0.40 seconds)
+Total CPU time: 1.53 seconds.
+CPU usage: 3.81x
+
+</code></pre>
+
+<p><em>Note: if you try this input with cracker1 it will take a long time,
+because the password for jesse won't be found until iteration 78174626.
+It's quick with cracker2 because thread 2 starts at iteration 77228944,
+just 945682 iterations from the solution.</em></p>
+
+<p>Distribute the work by splitting the the search space into equal-sized
+chunks, one for each worker thread.  For example, if there are 3
+unknown characters, then there are 26^3 = 17576 possible passwords
+that need to be tested.  With 4 worker threads, you would split the
+work up like this:
+<tt><ul>
+<li> Thread 1: 0..4393 (aaa..gmz)
+<li> Thread 2: 4394..8787 (gna..mzz)
+<li> Thread 3: 8788..13181 (naa..tmz)
+<li> Thread 4: 13182..17575 (tna..zzz)
+</ul></tt>
+
+<p>When the number of threads doesn't divide the search space evenly,
+it's easy to get off-by-one errors due to integer rounding.  To help
+you out and to make sure everyone is doing it consistently, here's
+code you should use for it:</p>
+
+<pre class="big-code-block"><code class="code-block" style="white-space: pre !important">/* Compute the subrange that a thread should work on.
+     unknown_letter_count - The number of letters in the password that
+       are not known.
+     thread_count - The number of worker threads.
+     thread_id - My thread ID, where the IDs start at 1.
+     start_index - (output parameter) This will be set to the index of
+       the first possible password this thread should try.
+     count - (output parameter) This will be set to the number of
+       passwords this thread should try.
+*/
+void getSubrange(int unknown_letter_count, int thread_count, int thread_id,
+                 long *start_index, long *count) {
+  int i;
+  long max = 1, end_index;
+  for (i=0; i < unknown_letter_count; i++) max *= 26;
+  *start_index = max * (thread_id - 1) / thread_count;
+  end_index = max * thread_id / thread_count;
+  if (end_index > max)
+    end_index = max;
+  *count = end_index - *start_index;
+}</code></pre>
+
+<p><b>setStringPosition().</b> How do you find the string for a given
+starting point? <code>incrementString()</code> lets you iterate
+through the search space, so you could just use that.  To get to
+position N, start with the unknown substring full of 'a' characters
+and call <code>incrementString()</code> on it N times.  That may be
+slow for large values of N, so we included the
+function <code>setStringPosition()</code> (declared in common.h and
+defined in common.c) that does it more efficiently.</p>
+
+<p>With all the threads working on the same task, you may want to
+restructure your thread synchronization a little.  Rather than a
+queue, you may wish to use a <a href="https://github.com/angrave/SystemProgramming/wiki/Synchronization,-Part-6:-Implementing-a-barrier">barrier</a>.
+</p>
+
+<pre class="big-code-block" style="font-size:.7em"><code class="code-block" style="white-space: pre !important">                Startup     Task 0..............................   Task 1..............................
+
+main thread:    <font color=green>read task</font> | <font color=red>idle</font>      | <font color=green>print results, read next</font> | <font color=red>idle</font>      | <font color=green>print results, read next</font>
+worker threads: <font color=red>idle</font>      | <font color=green>computing</font> | <font color=red>idle</font>                     | <font color=green>computing</font> | <font color=red>idle</font>
+                          &uarr;
+                       barrier
+</code></pre>
+(Zoom out if the above text line wraps)
+<p>Like with version 1, you may not create new threads for each task.
+The threads you create at the beginning of the program must be the
+same threads that compute the last task.</p>
+
+<p>When the main thread reads a task, it should
+print <tt>"Start &lt;username&gt;"</tt>.  When a thread starts processing
+a task, it should print its index and starting position. For example:</p>
+<pre class="big-code-block"><code class="code-block" style="white-space: pre !important">% echo eric xxqJ7cKzV3v4E zip..... | ./cracker2
+Start eric
+Thread 1: Start eric at 0 (zipaaaaa)
+Thread 2: Start eric at 2970344 (zipgnaaa)
+Thread 4: Start eric at 8911032 (ziptnaaa)
+Thread 3: Start eric at 5940688 (zipnaaaa)
+</code></pre>
+
+<p>When a worker thread finds the correct password, it should tell all
+the other threads to stop working on the task.  You can implement this
+with a simple flag variable that each thread checks on each iteration.
+Since all the threads are reading this variable and any thread may write
+to it, you'll need to properly synchronize access to it.</p>
+
+<p>When the worker threads finish a task, each thread will print the
+number of passwords it tried and a word describing how its run
+finished:</p>
+<ul>
+<li> <b><tt>(found)</tt></b> - this thread found the password
+<li> <b><tt>(cancelled)</tt></b> - stopped early because another thread found the password
+<li> <b><tt>(end)</tt></b> - finished with no password found.  Note: this can happen if the password was found, but this thread finished its chunk before
+another thread found the password.
+</ul>
+<p> After all worker threads finish each task, the main thread will
+print the password (if found), the total number of hashes, the wall
+clock and CPU time spent on that task, and the ratio of CPU time to
+wall clock time.</p>
+
+<p>
+
+    <b>For important grading information, see the ThreadSanitizer section at the bottom of this
+    document</b>
+
+</p>
+
+<h3> Helpful Extras </h3>
+
+<h4> ThreadSanitizer </h4>
+<p>
+
+    ThreadSantizer is a race condition detection tool. See <a href="tsan.html">this page
+    </a> for more information.
+
+</p>
+<p>
+
+    <b> We will be using ThreadSanitizer to grade your code! If the autograder detects a data
+    race, you won't automatically get 0 points, but a few points will be deducted. </b>
+
+</p>
+
+
+<h4> Thread status hook </h4>
+<p>We've provided a simple tool to help you when debugging your
+program.  See <code>thread_status.h</code>
+and <code>thread_status.c</code>.  If you
+install <code>threadStatusPrint()</code> as a handler for
+<code>SIGINT</code>, it will print a brief summary of what each
+thread is currently doing any time you hit <code>ctrl-c</code>. For
+example:</p>
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">% ./cracker2 cracker2.in 2 100000 2
+Start u0000000
+Start u0000001
+^C
+** Thread 0: semaphore wait at cracker2.c:219
+** Thread 1: processing at cracker2.c:269
+** Thread 2: processing at cracker2.c:269
+</code>
+</pre>
+<p>To use it:</p>
+<ol>
+<li> <tt>#include "thread_status.h"</tt>
+<li> Install <code>threadStatusPrint()</code> as the signal handler
+     for SIGINT.
+<li> Call <code>threadStatusSet()</code> to describe what the thread is
+  currently doing.  The argument to <code>threadStatusSet()</code>
+  should be a string constant. For example:
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">threadStatusSet("initializing");
+...
+while (!done) {
+  threadStatusSet("waiting for task");
+  task = queue_pull(task_queue);
+  threadStatusSet("processing");
+  ...
+}
+</code>
+</pre>
+</ol>
+<p>When <code>threadStatusPrint()</code> is called, it doesn't print the exact
+line number that each thread is at. It just prints the line number of the most
+recent call to <tt>threadStatusSet()</tt>. So, for more precise reporting, add more
+calls to <tt>threadStatusSet()</tt> to your code.</p>
+
+<p><code>thread_status.h</code> contains macros that will redefine calls
+to common thread synchronization functions so that when a thread is blocking
+on one of them, its status will represent that (like the &quot;semaphore wait&quot;
+on line 219 in the example above).</p>
+
+<p>You're not required to use the thread status tool as part of the
+assignment, we just thought it might make your debuggining easier.</p>
+
+<h4> create_examples </h4>
+<p>
+    We've also provided a small program to create example input files, to help you with your testing.
+    To build the create_examples program, run <code>make create_examples</code>. To use the program,
+    write it's output to a file, then use the file as input to a cracker program. For example:
+</p>
+<pre class="big-code-block">
+<code class="code-block" style="white-space: pre !important">./create_examples 10 100 150 > my_examples.in
+./cracker1 < my_examples.in
+</code>
+</pre>
+
+<p>To see what the cracked passwords should be, use the <code>-soln</code> flag when running <code>create_examples</code> (see the usage documentation given when running the program with no arguments).</p>
+
+
+<!-- end of docs -->
+</div>
+</main>
+</div>
+<script src="../../material.min.js"></script>
+</body>
+</html>

@@ -29,6 +29,7 @@ var nodes = [
       { name: "Networking", target: [0], level : 1},
       { name: "Artificial Intelligence", target: [0], level : 1},
       { name: "Data Vizualization", target: [0], level : 1},
+      {name: "Machine Learning", target: [0], level :1},
       { name: "Security", target: [0], level : 1},
       { name: "Data Mining", target: [0], level : 1}
 ];
@@ -55,12 +56,12 @@ var force = d3.layout.force()
 	.nodes(nodes)
 	.links([])
 	.gravity(0.2)
-	.charge(-1000)
+	.charge(-2000)
 	.size([w, h])
 
 var link = myChart.selectAll('line')
 	.data(links).enter().append('line')
-	// .attr('stroke', palette.gray)
+	.attr('stroke', palette.gray)
 
 var node = myChart.selectAll('circle')
 	.data(nodes).enter()

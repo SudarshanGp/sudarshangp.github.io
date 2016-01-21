@@ -1,0 +1,154 @@
+<div class = "row" ng-controller = 'OverviewController'>
+  <div class="small-12 medium-12 large-8 large-centered columns">
+    <h1>Two To Tango</h1>
+    <!-- <h2>DO NOT START LAB UNLESS TOLD TO DO SO! (WE MIGHT CHANGE THE SPECS)</h2> -->
+    <ul class="toc">
+      <h4>Contents</h4>
+      <a href="#lab9/#objectives">Learning Objectives</a>
+      <a href="#lab9/#setup">Setup</a>
+      <a href="#lab9/#barrier">Reusable Barrier</a>
+      <a href="#lab9/#danceeatsleep">Dance Eat Sleep</a>
+      <a href="#lab9/#grading">Grading</a>
+    </ul>
+
+    <!-- Learning Objectives -->
+    <div class = "pad">
+      <div id = "objectives" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Learning Objectives</h2>
+        </div>
+        <div class = "content">
+          <ul>
+              <li>Synchronization</li>
+              <li>Resuable Barriers</li>
+              <li>Bringing Order to Green Street</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Setup -->
+    <div class = "pad">
+      <div id = "setup" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Setup</h2>
+        </div>
+        <div class = "content">
+          <br/>
+          First update svn
+          <pre class = "terminal">
+cd ~/cs241
+svn up
+cd two_to_tango</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reusable Barrier -->
+    <div class = "pad">
+      <div id = "barrier" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Reusable Barrier</h2>
+        </div>
+        <div class = "content">
+            <p>
+                You will implement a reusable barrier.
+                The desired output for the two barrier tests is in the comments inside the tester.
+                We recommend you implement the 'barrier_waitup' first as a non-reusable barrier.
+            </p>
+            <p>
+                Your implementation should be contained in 'barrier.c' and 'barrier.h'.
+            </p>
+            <p>
+                A common problem when implementing a reusable barrier is that there is the possibility
+                that a precocious thread could get all the CPU cycles and make it to the barrier again on the next iteration,
+                while the other threads are still at the barrier on the previous iteration.
+                To resolve this we used 'barrier_waitup' AND 'barrier_waitdown' to make all the threads wait twice.
+                You are free to resolve this dilemma however you choose.
+            </p>
+            <p>
+                You can test your barrier with
+                <pre class = "terminal">make</pre>
+                to generate the barrier_test executable.
+                Run the said executable with
+                <pre class = "terminal">./barrier_test</pre>
+                Be warned that these tests are intentionally not extensive (you should also run them multiple times to detect race conditions).
+            </p>
+            <p>
+                You might find the following helpful
+                <a href = "https://github.com/angrave/SystemProgramming/wiki/Synchronization%2C-Part-6%3A-Implementing-a-barrier">(Barrier Notes).</a>
+            </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dance Eat Sleep -->
+    <div class = "pad">
+      <div id = "danceeatsleep" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Dance Eat Sleep</h2>
+        </div>
+        <div class = "content">
+            <p>
+                Some CS students have just finished their CS241 MP, and they need a break!
+                Since they are UIUC CS students, they have decided to hang out on Green Street!
+                However, it's Friday night and non-CS majors have already occupied all the good places.
+                The only available places they can go are one dancing club and one restaurant.
+                However, the restaurant made a contract with dancing club so that only people who danced are allowed to eat.
+                Furthermore, only 1 group can enter the dancing hall at a time, and only 1 group can enter the restaurant at a time.
+                Unfortunately, unhappy and tired CS students are not willing to follow the instructions and they have created chaos!
+            </p>
+            <p>
+                Here are the restrictions:
+            </p>
+            <p>
+                <ol>
+                    <li>Only one group can enter the dancing room.</li>
+                    <li>Only one group can enter the restaurant.</li>
+                    <li>After eating, you will take a short nap before dancing again.</li>
+                    <li>You need to be able to handle arbitrary numbers of dancers and diners.</li>
+                    <li>The curfew begins at midnight, and students must go back to their houses. :(</li>
+                </ol>
+            </p>
+            <p>
+                Basically here is the cycle: DANCING -> EATING -> SLEEP -> DANCING
+            </p>
+            <p>
+                Spend some time reading the code base for 'dance_eat_sleep.c'.
+                Take good note of all the "TODO"s.
+                These will tell you exactly where to modify the code.
+                You might have to modify other places depending on your implementation,
+                but these are required.
+            </p>
+            <p>
+                For testing you simply need to generate the 'dance_eat_sleep' executable with
+                <pre class = "terminal">make</pre>
+                then you can run the executable with
+                <pre class = "terminal">./dance_eat_sleep &lt;num_customers&gt; &lt;max_dancers&gt; &lt;max_eaters&gt;</pre>
+            </p>
+            <p>
+                P.S. Some combinations of dance group sizes, restaurant group sizes and total customers are guaranteed to deadlock.
+                DO NOT FREAK OUT, try to think whether or not your test case was bad before attempting to debug your code.
+            </p>
+            <p>
+                P.S.S. We give some debug information, but lack of a failure does not imply success.
+            </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grading -->
+    <div class = "pad">
+      <div id = "grading" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Grading</h2>
+        </div>
+        <div class = "content">
+            Your grade will be some linear combination of having a correctly reusable barrier,
+            bringing order to green street, and attending lab.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

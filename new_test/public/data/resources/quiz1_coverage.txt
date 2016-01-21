@@ -1,0 +1,92 @@
+Learning objectives for quiz 1 - Ed Karrels
+
+items with 'o' prefix are things I haven't covered yet in lecture
+  (current as of 8/31 3pm)
+
+Know some of the services that the operating system provides
+ - protect the system from errant programs
+ - hide differences in devices (different types of I/O devices)
+ - hide differences in the system (mobile phone vs. Blue Waters)
+ - manage shared resources (printer, CPU time)
+
+Know that POSIX is a standard that describes UNIX systems.
+ - it's not a programming language
+ - there are many different implementations
+
+stdio.h includes many helpful function prototypes and macro definitions,
+but C programs don't need to #include it.
+ - the prototype for printf() can be found in it
+
+printf format specifiers
+ - %d: int
+ - %s: string
+ - %f: floating-point values
+ - %p: pointers
+
+C strings
+ - find the length by looking for the first null character
+ - the length is not stored anywhere.  you need to search for the null terminator
+ - a string of length N requires N+1 bytes of memory (content + null byte)
+ - literal strings are in read-only memory; attempting to modify them
+   results in a seg fault
+ - strings stored in arrays can be modified (unlike Java's immutable strings)
+
+Memory errors
+ - unlike Java, accessing invalid memory is not guaranteed to fail
+ - use Valgrind to help find invalid memory accesses
+
+Pointers
+ - to declare a pointer, prefix the variable name with an asterisk
+ - address-of operator: &
+   it converts a variable into a pointer to that variable
+ - dereference operator: *
+   it converts a pointer into a readable and writable variable
+
+Datatype sizes
+ - find the size of a type or expression with sizeof()
+ - sizeof(char) = 1
+ - sizeof(int) = (on current hardware) usually 4
+ - sizeof(long) = (on current hardware) sometimes 4, sometimes 8
+ - sizeof(char*) = 4 on a 32-bit system, 8 on a 64-bit system
+                   (in general, there may be exceptions)
+
+Pointers
+ - a pointer is two things: a memory address and a type
+ - void pointers are just a memory address without a datatype
+
+Pointer arithmetic
+ - adding a pointer (p) and an integer (i) results in a pointer whose
+   address is p's address offset by i*sizeof(*p).
+ - subtracting a pointer (p1) from another pointer(p2) results in
+   an integer that is the difference of the two addresses divided by
+   the size of *p1.
+ - x[y] is equivalent to *(x+y).
+ o subtracting pointers of different types is a compile-time error
+ - the name of an array is equivalent to a pointer to the first element
+   in the array
+
+Memory
+ - free() what you malloc()
+ - C will not warn you at runtime if you read or write past the end
+   of an allocated section of memory
+
+ - function arguments and local variables are stored on a stack
+ - When a function returns, the local variables are automatically deallocated.
+   Using a pointer to one of them after the function returns will
+   cause memory corruption. It's equivalent to using malloc()d memory
+   after it has been free()d.
+ - static local variables aren't deallocated when the function returns
+ - it is safe to return the address of static local variables
+
+I/O
+ - C provides FILE* i/o routines: fopen(), printf(), fprintf(), ...
+ o POSIX provides integer file descriptor i/o routines: open(), write(), ...
+ o printf and fprintf are implemented using write()
+ o there are two standard output streams: stdout (fd=1) and stderr (fd=2)
+ o printf() writes to stdout by default
+ o use fprintf() to write to either, or to your own file
+ o by default, writes to stdout are buffered and writes to stderr are not.
+ o if stdout is the screen, newline characters will cause a flush
+ o use fflush() to for a flush
+ o write buffering improves performance by reducing the number of calls
+   to write(), since the per-call overhead is significant

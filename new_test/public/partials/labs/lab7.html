@@ -1,0 +1,166 @@
+<div class = "row" ng-controller = 'OverviewController'>
+  <div class="small-12 medium-12 large-8 large-centered columns">
+    <h1>Terrible Tangled Twisted Threads</h1>
+    <!-- <h2>DO NOT START LAB UNLESS TOLD TO DO SO! (WE MIGHT CHANGE THE SPECS)</h2> -->
+    <ul class="toc">
+      <h4>Contents</h4>
+      <a href="#lab7/#objectives">Learning Objectives</a>
+      <a href="#lab7/#setup">Setup</a>
+      <a href="#lab7/#rendezvous">Rendezvous</a>
+      <a href="#lab7/#semamore">Semamore</a>
+      <a href="#lab7/#queue">Thread-safe Queue</a>
+      <a href="#lab7/#testing">Testing</a>
+      <a href="#lab7/#grading">Grading</a>
+    </ul>
+    <!-- Learning Objectives -->
+    <div class = "pad">
+      <div id = "objectives" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Learning Objectives</h2>
+        </div>
+        <div class = "content">
+          <ul>
+              <li>Syncronization Primitives</li>
+              <li>Thread-safe Datastructure Design</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Setup -->
+    <div class = "pad">
+      <div id = "setup" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Setup</h2>
+        </div>
+        <div class = "content">
+          <br/>
+          First update svn
+          <pre class = "terminal">
+cd ~/cs241
+svn up
+cd ttt_threads</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rendezvous -->
+    <div class = "pad">
+      <div id = "rendezvous" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Rendezvous (NOT GRADED)</h2>
+        </div>
+        <div class = "content">
+          <h6>Brain Teaser:</h6>
+          <p>
+              Given two threads, a and b, and the fact that both have to run two tasks (a1, a2, b1, b2), how do you get both a1 and b1 to run before either a2 and b2?
+              In rendezvous.c, you need to modify the two functions using semaphores so that both quotes A and B are modified before being printed.
+              This is something for you to think about and not graded.
+              Thus, we also provide you with the solution.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semamore -->
+    <div class = "pad">
+      <div id = "semamore" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Semamore</h2>
+        </div>
+        <div class = "content">
+          <p>
+              Zach Miller thinks semaphores can be better, can do "more".
+              Help him by creating a semamore!
+          </p>
+          <p>
+              A normal semaphore blocks when the value within the semaphore reaches 0.
+              A semamore blocks when it reaches 0, but also blocks when it reaches some maximum value.
+              You can think of a semamore as a top-bounded semaphore.
+              In semamore.c, you are given three functions to work on, semm_wait, semm_post, semm_destroy.
+              semm_post is the important difference.
+              When semm_post reaches max_val (as defined in the semamore struct in semamore.h), it blocks.
+              Another note: semm_destroy should not free the semamore struct pointer passed to it.
+              See the semamore.c for more details! Good luck!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thread-safe Queue -->
+    <div class = "pad">
+      <div id = "queue" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Thread-safe Queue</h2>
+        </div>
+        <div class = "content">
+          <p>
+              For this part, you only need to modify queue.c.
+              Any changes to the other files will be ignored upon grading.
+              Your task is to build a thread safe queue, that also may or may not be bounded, by implementing the functions in queue.c.
+              The maxSize of the queue can be set to either a positive number or a non-positive number.
+              If positive, your queue will block if the user tries to push when the queue is full.
+              If not positive, your queue should never block upon a push.
+              Obviously, if your queue is empty then you should block on a pull.
+              You should make use of the node struct to store and retrieve information.
+              In the end, your queue implimentation should be able to handly conccurent calls from multiple threads.
+              queue_init and queue_destroy will not be called by multiple threads.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testing -->
+    <div class = "pad">
+      <div id = "testing" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Testing</h2>
+        </div>
+        <div class = "content">
+          <h6>We provided you with a Makefile.</h6>
+          <p>
+              Typing
+              <pre class = "terminal">make</pre>
+              will run the rendezvous test and all 5 tests for the queue.
+              <pre class = "terminal">make rende</pre>
+              or
+              <pre class = "terminal">make testqueue</pre>
+              will run the tests for only rendezvous or the queue.
+              Similarly you can do
+              <pre class = "terminal">make testqueue1</pre>
+              <pre class = "terminal">make testqueue2</pre>
+              to compile and run the individual tests.
+              OR after the test has already been compiled, you can run
+              <pre class = "terminal">./testrendezvous</pre>
+              to test the rendezvous
+              <pre class = "terminal">./runtestqueue 1</pre>
+              <pre class = "terminal">./runtestqueue 2</pre>
+              to run the tests for the queue.
+          </p>
+          <p>
+              For testing your semamore, because it should have the same functionallity of a regular semaphore you should easily be able to test it yourself (like using it in rendezvous *wink wink* ;))
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grading -->
+    <div class = "pad">
+      <div id = "grading" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Grading</h2>
+        </div>
+        <div class = "content">
+            The coding portion of your grade is (subject to change)
+            <ul>
+                <li>Rendezvous 0%</li>
+                <li>Semamore 25%</li>
+                <li>Thread-safe Queue 75%</li>
+            </ul>
+            Your total lab grade will be some linear combination of the coding portion and attending lab.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

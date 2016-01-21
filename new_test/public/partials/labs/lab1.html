@@ -1,0 +1,99 @@
+<div class = "row" ng-controller = 'OverviewController'>
+  <div class="small-12 medium-12 large-8 large-centered columns">
+    <h1>Know Your Tools</h1>
+    <ul class="toc">
+      <h4>Contents</h4>
+      <a href="#lab1/#intro">Intro</a>
+      <a href="#lab1/#vms">VMs</a>
+      <a href="#lab1/#svn">SVN</a>
+      <a href="#lab1/#gitlab">GitLab</a>
+      <a href="#lab1/#misc">Valgrind + GDB + Clang</a>
+      <a href="#lab1/#badc">5 Bad C Programs</a>
+    </ul>
+    <div class = "pad">
+      <div id = "intro" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Introduction</h2>
+        </div>
+        <div id = "intro" class = "content">
+          Please introduce yourself (lab assistants should go first) to the rest of your class.
+          Tell everyone your name, grade, and one interesting fact about yourself.
+        </div>
+      </div>
+    </div>
+    <div class = "pad">
+      <div id = "vms" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">VMs</h2>
+        </div>
+        <div class = "content">
+          In this course we are using the VMs for all our development so it is important that you learn how to use them. <br/><br/>
+          Please ssh or FastX into your VM. I have provided the ip in your svn repo.<br/>
+          If you want to ssh and your netid is 'bschong2' and your ip is 'fa15-cs241-000.cs.illinois.edu', then all you need to do is enter <pre class = "terminal">ssh bschong2@fa15-cs241-000.cs.illinois.edu</pre> into your terminal.
+          If you want a GUI, then you should use FastX and follow these <a href = "https://it.engineering.illinois.edu/user-guides/remote-access/connecting-ews-linux-fastx">instructions</a>.
+        </div>
+      </div>
+    </div>
+    <div class = "pad">
+      <div id = "svn" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">SVN</h2>
+        </div>
+        <div class = "content">
+          In this course we are using SVN to submit all our assignments<br/><br/>
+          <strong>Once you are in your VM</strong> please checkout your svn repo with the following command
+          <pre class = "terminal">svn co https://subversion.ews.illinois.edu/svn/fa15-cs241/YOUR-NETID cs241</pre>
+          which will check out your entire SVN repo into a folder called 'cs241' into your current directory.
+          Now change your directory into the 'cs241' folder <pre class = "terminal">cd cs241</pre> and create a 'Lab1' folder <pre class = "terminal">mkdir Lab1</pre>
+          Now check the status of your repo <pre class = "terminal">svn status</pre> and notice that you now have a 'Lab1' folder that needs to be added.
+          Add the 'Lab1' folder to svn <pre class = "terminal">svn add Lab1</pre> and commit it <pre class = "terminal">svn ci -m "adding the Lab1 folder"</pre>
+        </div>
+      </div>
+    </div>
+    <div class = "pad">
+      <div id = "gitlab" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">GitLab</h2>
+        </div>
+        <div class = "content">
+          In this course we are using GitLab to host all our code examples<br/><br/>
+          <strong>Once you are in your VM</strong> please go to <a href = "https://gitlab-beta.engr.illinois.edu/">https://gitlab-beta.engr.illinois.edu/</a> to register for an account (use your netid and AD password).
+          Now check out your first git repo for this class (outside of your SVN directory)!
+          <pre class = "terminal">git clone https://gitlab-beta.engr.illinois.edu/cs241fa15/Check_Me_Out.git</pre>
+        </div>
+      </div>
+    </div>
+    <div class = "pad">
+      <div id = "misc" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">Valgrind + GDB + Clang</h2>
+        </div>
+        <div class = "content">
+          In this course you will need to know how to use Valgrind + GDB + GCC<br/><br/>
+          <strong>Once you are in your VM</strong> please create a file called 'dumb.c' in your Lab1 directory that you just made.
+          Now write a valid C program in 'dumb.c' that will segfault.
+          Now compile with clang <pre class = "terminal">clang dumb.c -o dumb -g</pre>
+          Run it to make sure it segfaults <pre class = "terminal">./dumb</pre>
+          Run valgrind to see what line it segfaults on <pre class = "terminal"> valgrind ./dumb</pre>
+          Run gdb to see what line it segfaults on <pre class = "terminal">gdb ./dumb </pre> <pre class = "terminal">run</pre> <pre class = "terminal">backtrace</pre>
+          Then exit gdb <pre class = "terminal">quit</pre>
+          Now commit 'dumb.c' to your Lab1 folder on svn (I leave this as an excerise to the reader).
+        </div>
+      </div>
+    </div>
+    <div class = "pad">
+      <div id = "badc" class="mdl-card mdl-shadow--2dp large-card">
+        <div class="mdl-card__title" style = "background-color: #03a9f4">
+          <h2 class="mdl-card__title-text" style = "color: white">5 Bad C Programs</h2>
+        </div>
+        <div class = "content">
+          Now onto the main part of the lab<br/><br/>
+          Please form a group of 4 to 6 and show everyone your bad C programs and explain the errors made in your code.
+          After that, as a group create a new sneaky but short C example and see if you can hide a deliberate mistake in it.
+          Challenge the rest of the lab to see if they can spot the error.
+          20 lines of code maximum (excluding blank lines) - the errors not obvious but still 'in plain sight'
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,523 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MP2: What the Shell?</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="https://courses.engr.illinois.edu/cs241/#/mp">
+    -->
+
+    <link href='//fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" href="material.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    .big-code-block {
+        border: 1px solid #222;
+        padding: 15px;
+        background-color: #fdfdfd;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+      <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Part 1 Due <strong>Monday, September 21</strong> at <strong>11:59 p.m.</strong>
+          <br>
+          Part 2 Due <strong>Monday, September 28</strong> at <strong>11:59 p.m.</strong>
+          </span>
+        </div>
+      </header>
+      <div class="demo-ribbon"></div>
+      <main class="demo-main mdl-layout__content">
+        <div class="demo-container mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+          <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+            <div class="demo-crumbs mdl-color-text--grey-500">
+                <a href="https://courses.engr.illinois.edu/cs241/">CS 241</a> &gt; <a href="https://courses.engr.illinois.edu/cs241/#/mp">Machine Problems</a> &gt; <a href="#">Shell</a>
+            </div>
+
+      <h1 style = "margin-bottom:0;">MP2: What the Shell?</h1>
+      <p style = "color: rgba(225,233,241,1.0)">More string manipulation?</p>
+
+      <p>First, let's start off with some warnings. These are important, so please read them. That's why they're at the top of the page and in red.</p>
+
+      <h2>Warnings</h2>
+      <ol class="warning">
+        <li>If your code fork bombs on any autograde, then you will automatically fail this MP</li>
+        <li>Please make doubly sure that your fork() code is correct before committing your code for the nightly autograder.</li>
+        <li>Please print the PID of the process executing the command i.e. the PID of the child process.</li>
+      </ol>
+      <h2>Contents</h2>
+      <ul>
+        <li>
+          Part 1: Log and Vector
+          <ul>
+            <li><a href = "#log">Log and Vector</a></li>
+            <li><a href = "#logDetails">Details</a></li>
+          </ul>
+        </li>
+        <li>
+          Part 2: Shell
+          <ul>
+            <li><a href = "#overview">Overview</a></li>
+            <li><a href = "#args">Reading the Arguments</a></li>
+            <li><a href = "#print">Printing the Command Prompt</a></li>
+            <li><a href = "#reading">Reading the Command from stdin (or a file)</a></li>
+            <li><a href = "#pid">Printing the PID of the Process Executing the Command</a></li>
+            <li>
+              Decipher the Command
+              <ul>
+                <li><a href = "#cd">cd</a></li>
+                <li><a href = "#exit">exit</a></li>
+                <li><a href = "#history">!history</a></li>
+                <li><a href = "#index">!#</a></li>
+                <li><a href = "#history">!history</a></li>
+                <li><a href = "#query">!query</a></li>
+                <li><a href = "#nonbuiltin">NON BUILT-IN COMMANDS</a></li>
+                <li><a href = "#bg">CMD &</a></li>
+                <li><a href = "#ctrlc">Ignore Ctrl+C</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+
+			<h2>Introduction</h2>
+        <p>
+          You're an intern at Grapple, and their Dev Ops group is moving all developers from their minimalist GUI to a shell. Congratulations! You've been selected as the recipient of the honor of implementation, because nobody else wanted to do it.
+        </p>
+
+        <p>
+          In this MP, you will implement a simple Unix shell (e.g., bash, csh etc.) called 'wtsh'. The basic function of a shell is to accept commands as inputs and execute the corresponding programs in response.
+        </p>
+
+        <p>
+          The purpose of this MP is to help you learn the basics of system calls for creating and managing processes as you implement your Shell program.
+          You will write the code for your Shell program in shell.c.
+          You will also be required to implement the functions in log.c, log.h, vector.c, and vector.h.
+        </p>
+
+        <p>
+          Make Tom Chef, your CEO, proud.
+        </p>
+
+      <h2 id = "log">Part 1: Log</h2>
+        <p>
+          Your mentor has helped you split up the tasks for this assignment, and has left her notes in the .h files.
+        </p>
+        <p>
+          In order to create the Shell, you'll implement the data structure Log. The Log struct contains a Vector (an automatically-expanding array of strings) to efficiently add, search, and retrieve commands executed by the shell.
+        </p>
+        <p>
+          Take a look at <strong>vector.h</strong> for implementation definitions. Know that you're responsible for testing the functionality of Vector before proceeding to the next part of the MP.
+        </p>
+        <p>
+          Next, open up <strong>log.h</strong> to know what to implement for the Log struct. As with Vector, you're responsible for testing Log's functionality for extreme edge cases before going on to the Shell part.
+        </p>
+        <p>
+          To test your code, your mentor left you a <strong>vector_test.c</strong> and <strong>log_test.c</strong> that reflects how little she cares about testing (obviously you care a lot more).
+        </p>
+        <p>
+          Good luck!
+        </p>
+
+      <h3 id = "logDetails">Details</h3>
+        <ul>
+          <li>You are allowed to edit the files: <strong>log.h</strong>, <strong>log.c</strong>, <strong>vector.h</strong>, <strong>vector.c</strong></li>
+          <li>You MUST implement the declared functions in the header files (or you will fail). This also means you can not modify the function signatures.</li>
+          <li>You MAY add extra helper functions to your header files.</li>
+          <li>You are also allowed to edit <strong>vector_test.c</strong> and <strong>log_test.c</strong>, but we will not grade them.</li>
+        </ul>
+
+      <h2 id = "overview">Part 2: Shell</h2>
+        <s>
+          <p>Before your meeting with your mentor ended, you asked about the actual shell.</p>
+          <p>"Don't worry," she said, checking her Grapple clock. "We'll talk about this when we get to it. Good luck, intern!"</p>
+        </s>
+        <p>A wild mentor appears with the following specs:</p>
+        To execute multiple commands, your shell should run in a loop where each iteration performs the following actions:
+        <ol>
+        	<li>Print a command prompt</li>
+        	<li>Read the command from standard input</li>
+        	<li>Print the PID of the process executing the command (except for <a href = "#builtin">BUILT-IN COMMANDS</a></li>
+        	<li>Decide which actions to take based on the command (exit, run program, etc.)</li>
+        </ol>
+        	<h3 id = "args">Task 0: Reading the Arguments</h3>
+        	<p>
+            Your shell will support 2 <b>optional</b> arguments which may be passed to your shell: <code>-h</code>, and <code>-f</code>.
+            Multiple instances of each flag may be provided.
+            We will not run your shell with both flags provided.
+        	</p>
+        	<ul>
+        		<li>
+        			<p><b>-h</b></p>
+        			<p>
+        				./wtsh -h<br>
+        				This should print: "Shell by &lt;netid&gt;" and then run the shell.
+                If multiple "-h" arguments are on the command line, only print "Shell by &lt;netid&gt;" once.
+                For example
+        			</p>
+              <pre>
+                <code>
+                  ./wtsh -h <br/>
+                  Shell by bschong2<br/>
+                  (pid=1234)/home/user$
+          			</code>
+              </pre>
+        		</li>
+        		<li>
+        			<p><b>-f</b></p>
+        			<p>
+        				./wtsh -f &lt;filename&gt;<br>
+        				This should execute the commands in the script (one per line) with the file name &lt;filename&gt;.
+                Basically you are following the instructions starting from Task 2, but read from a file instead of stdin.
+                If the end-of-file is reached without seeing an exit command, the program should exit as if an exit command had been given.
+                If multiple "-f" arguments are on the command line, ignore all but the last one.
+                So <code>./wtsh -f foo -f bar -f baz</code> will run baz as the input file.
+                For example if commands.txt is
+              </p>
+              <pre>
+                <code>
+                  cd cs241<br/>
+                  echo Hey!<br/>
+          			</code>
+              </pre>
+              Then running the shell will behave as follows.
+              <pre>
+                <code>
+                  ./wtsh -f commands.txt<br/>
+                  (pid=1234)/home/user$ cd cs241<br/>
+                  (pid=1234)/home/user/cs241$ echo Hey!<br/>
+                  Command executed by pid=1235<br/>
+                  Hey!<br/>
+                  (pid=1234)/home/user/cs241$ exit<br/>
+          			</code>
+              </pre>
+
+        			<!-- </p>
+        			<p>
+        				[NOTE 1] It's safe to use "system()" here since the autograder only cares about the output of the commands in the script file.
+        			</p>
+        			<p>
+        				[NOTE 2] "exit" command will not appear in the test script since there will be other test cases from stdin after the "./shell -f XXX" command. (The sample binary uses "system" function here so the shell won't exit when an "exit" command comes.)
+        			</p> -->
+        		</li>
+        		<!-- <li>
+        			<p><b>=</b></p>
+        			<p>
+        				./shell =<br>
+        				This should print the list of environment variables in your machine. Your output may look
+        				something like this: <br><br>
+        			<ul>
+        				"PWD=/home/["netid"]/cs241/mp1
+        				<br>
+        				[other environment variables]
+        				<br>
+        				SHELL=/bin/bash
+        				<br>
+        				[other environement variables]
+        				<br>
+        				USER=["netid"]
+        				<br>
+        			</ul>
+        			</p>
+        		</li> -->
+        		<!-- <li>
+        			<p><b>-t</b></p>
+        			<p>
+        				./shell -t<br>
+        				Whenever you run a NON-BUILT-IN COMMAND (Task 4), print the time it took for the command to execute. <br>
+        				For example, if you enter<br><br>
+        			<ul>
+        				./shell -t
+        				<br>
+        				ls
+        				<br>
+        				<br>
+        			</ul>
+        			It should print the folder contents followed by<br>
+        			"Execution took x microseconds"<br>
+        			</p>
+        		</li> -->
+        	</ul>
+        	<!-- <p>Your shell will be run with no more than 1 argument at a time</p> -->
+        	<h3 id = "print">Task 1: Printing the Command Prompt</h3>
+        	<p>Your shell prompt <strong>MUST</strong> use the following format:</p>
+          <pre>
+            <code>
+          		(pid=x)/path/to/cwd$
+          	</code>
+          </pre>
+
+        	You can use <code>printf("(pid=%d)%s$ ", pid, pwd)</code> to print out this prompt.
+          Here pid is the current process ID and pwd is the full path to the current working directory.
+          How would you get the current process ID and the full path to the current working directory?
+          I leave this as an exercise to the reader.
+        	<h3 id = "reading">Task 2: Reading the Command from <code>stdin</code> (or a file)</h3>
+        	<p>
+        		Read a line from stdin (or from the file that was specified on the command line with the -f option).
+            This line will be your command.
+            The function <code>getline()</code> can be used to accomplish this easily.
+            Beware that <code>getline()</code> may allocate memory that the user must free.
+        	</p>
+        	<h3 id = "pid">Task 3: Printing the PID of the Process Executing the Command</h3>
+          Each time a new process is started with fork(), the PID of the new process must be printed like this:
+        	<pre>
+            <code>
+          		Command executed by pid=x
+          	</code>
+          </pre>
+        	You can use <code>printf("Command executed by pid=%d\n", pid)</code> to print out this process information.
+          This should be printed in the child process to insure that this will be printed before any output of the child process.
+        	<h3>Task 4: Decipher the Command</h3>
+        	<p>
+        		Shell supports two types of commands: built-in and non built-in.
+        		While built-in commands are executed without creating a new process, a
+        		non built-in command MUST create a new process to execute the program
+        		for that particular command.
+        	</p>
+        	<p>
+        		A single space will separate words on the command line.
+            For the purpose of simplicity, all commands we will test
+        		will contain no extra whitespace anywhere in the command (or extra junk
+        		that doesn&#39;t make sense like the <code>&quot; abc&quot;</code> in <code>&quot;!history abc&quot;</code>).
+            This includes before the command, after the command,
+        		or between different arguments.
+            We also will not test a blank line (though your program should not crash on a blank line).
+            We will also not test to see if you support the quoting semantics a regular Unix shell.
+            In a full-featured shell, if you enter:
+            <code>echo "hello there" 'hacker extraordinaire'</code>
+            it will pass two arguments to the 'echo' command: "hello there" and "hacker extraordinaire".
+        	</p>
+        	<h4 id = "builtin">BUILT-IN COMMANDS</h4>
+        	<p>
+        		Your
+        		Shell will support four built-in commands: cd, exit and three commands
+        		(!history, !number, !query) based on a history feature.
+            You should use the log from Part 1 to implement the history functionality.
+        	</p>
+        	<p>
+        	</p>
+        	<ul>
+        		<li id = "cd">
+        			<p><b>cd xxx</b></p>
+        			<p>Changes the Shell&#39;s current working directory to &#39;xxx&#39;. [Hint: See function <code>chdir()</code>.]</p>
+        			<p>
+        				If for some reason (for example, xxx is not a valid directory) the command
+        				&quot;cd&quot; does not end successfully, then Shell should retain its current working
+        				directory and should print (without the quotes): <code>&quot;xxx: No such file or directory&quot;</code> to indicate the error.
+        			</p>
+              For example:
+              <pre>
+                <code>
+                  (pid=1234)/home/user$ cd code<br/>
+                  (pid=1234)/home/user/code$ cd imaginary_directory<br/>
+                  imaginary_directory: No such file or directory<br/>
+                  (pid=1234)/home/user/code$
+          			</code>
+              </pre>
+        		</li>
+        		<li id = "exit">
+        			<p><b>exit</b></p>
+        			<p>Terminates the Shell(frees all resources and has the log persist).</p>
+        		</li>
+        		<li id = "history">
+        			<p><b>!history</b></p>
+        			<p>
+        				Prints for each command (in chronological order) its line number (0 indexed), a tab, the command itself, and a newline.
+                Do not store !history in the history (this is the only command that will never store data in the history ... except for !# do to a technicality).
+        				For example:
+        			</p>
+        			<pre>
+                <code>
+                  (pid=1234)/home/user$ !history<br/>
+          				0&nbsp;&nbsp;&nbsp;&nbsp;ls -l<br/>
+          				1&nbsp;&nbsp;&nbsp;&nbsp;pwd<br/>
+          				2&nbsp;&nbsp;&nbsp;&nbsp;ps<br/>
+                  (pid=1234)/home/user$
+          			</code>
+              </pre>
+        		</li>
+            <li id = "index">
+        			<p><b>!#</b></p>
+        			<p>
+        				Re-executes the #th command in history (chronological order) and stores that in history as the command itself.
+                Print the #th command before executing the command.
+                If # is not a valid index then print "Invalid Index" (this should not be stored in the history).
+                Note: that !# is not stored in history, because that is not the command being executed.
+        				For example (assume fresh start):
+        			</p>
+        			<pre>
+                <code>
+                  (pid=1234)/home/user$ echo Echo This!<br/>
+                  Command executed by pid=1235<br/>
+                  Echo This!<br/>
+                  (pid=1234)/home/user$ echo Another echo<br/>
+                  Command executed by pid=1236<br/>
+                  Another echo<br/>
+                  (pid=1234)/home/user$ !history<br/>
+                  0&nbsp;&nbsp;&nbsp;&nbsp;echo Echo This!<br/>
+                  1&nbsp;&nbsp;&nbsp;&nbsp;echo Another echo<br/>
+                  (pid=1234)/home/user$ !1<br/>
+                  echo Another echo<br/>
+                  Command executed by pid=1237<br/>
+                  Another echo<br/>
+                  (pid=1234)/home/user$ !9001<br/>
+                  Invalid Index<br/>
+                  (pid=1234)/home/user$ !history<br/>
+                  0&nbsp;&nbsp;&nbsp;&nbsp;echo Echo This!<br/>
+                  1&nbsp;&nbsp;&nbsp;&nbsp;echo Another echo<br/>
+                  2&nbsp;&nbsp;&nbsp;&nbsp;echo Another echo<br/>
+                  (pid=1234)/home/user$
+          			</code>
+              </pre>
+        		</li>
+        		<li id = "query">
+        			<p><b>!query</b></p>
+        			<p>
+        				Re-executes the last command whose prefix matches query.
+                Query can be any combination of characters.
+                Print the matched command before executing the command.
+        				If no match is found print <code>&quot;No Match&quot;</code>.
+        				Re-executed commands should be stored in the history.
+                Nothing will stored in the history if no match is made.
+                For example (assume fresh start):
+        			</p>
+        			<pre>
+                <code>
+                  (pid=1234)/home/user$ echo Echo This!<br/>
+                  Command executed by pid=1235<br/>
+                  Echo This!<br/>
+                  (pid=1234)/home/user$ echo Another echo<br/>
+                  Command executed by pid=1236<br/>
+                  Another echo<br/>
+                  (pid=1234)/home/user$ !e<br/>
+                  echo Another echo<br/>
+                  Command executed by pid=1237<br/>
+                  Another echo<br/>
+                  (pid=1234)/home/user$ !echo E<br/>
+                  echo Echo This!<br/>
+                  Command executed by pid=1238<br/>
+                  Echo This!<br/>
+                  (pid=1234)/home/user$ !d<br/>
+                  No Match<br/>
+                  (pid=1234)/home/user$ !history<br/>
+                  0&nbsp;&nbsp;&nbsp;&nbsp;echo Echo This!<br/>
+                  1&nbsp;&nbsp;&nbsp;&nbsp;echo Another echo<br/>
+                  2&nbsp;&nbsp;&nbsp;&nbsp;echo Another echo<br/>
+                  3&nbsp;&nbsp;&nbsp;&nbsp;echo Echo This!<br/>
+                  (pid=1234)/home/user$<br/>
+          			</code>
+              </pre>
+        		</li>
+        	</ul>
+        	<p></p>
+        	<h4 id = "nonbuiltin">NON BUILT-IN COMMANDS</h4>
+        	<p>
+        		If the command is not a Shell built-in (i.e., any command other than
+        		cd, exit, !history, !#, !query), Shell should consider the command name to be
+        		the name of a file that contains executable binary code. Such a code
+        		must be executed in a process different from the one executing the
+        		shell. You must use <code>fork(), exec(), wait()</code>.<br>
+        	</p>
+        	<p style = "color:red">If you use <code>system()</code> you will automatically fail this MP.</p>
+          <p>Note: that you should store a "bad" commands (so your shell is not responsible for checking to see if the command exec()'ed  correctly before storing it in the log).</p>
+        	<p>
+        		The <code>fork(), exec(), wait()</code> paradigm is as follows: <code>fork()</code> a child process.
+            The child process must execute the command with <code>exec()</code>, while the parent must <code>wait()</code> for the child to terminate before printing the next prompt.
+            It is important to note that, upon a successful execution of the command, <code>exec()</code> never returns to the child process.
+            <code>exec()</code> only returns to the child process when the command fails to execute successfully.
+        		In that case, shell should print (without the quotes):  <code>&quot;xxx: not found&quot;</code>, where xxx is the executable name.<br/>
+            For example:
+            <pre>
+              <code>
+                (pid=1234)/home/user$ invalid_command --flag-that-is-ignored also_ignored also_ignored<br/>
+                Command executed by pid=1235<br/>
+                invalid_command: not found<br/>
+                (pid=1234)/home/user$<br/>
+              </code>
+            </pre>
+        	</p>
+        	<p>
+        		Failure to terminate the child process after an invalid command may
+        		result in a fork bomb. You can find information about cleaning a system
+        		after a fork bomb <a href="http://www.linuxhowtos.org/Tips%20and%20Tricks/ulimit.htm" target="_blank">here</a>.
+          </p>
+          <p style="color:red;font-weight:bold">
+      		  If your code fork bombs during grading you will automatically recieve a 0 for this MP.
+          </p>
+        	<p>
+        		Some non built-in commands that you may try to see whether your Shell works as it should are:
+            <pre>
+              <code>ls</code>, <code>/bin/ls,pwd</code>, <code>ps</code>, <code>echo hello</code>
+            </pre>
+          </p>
+        	<h4 id = "bg">CMD &</h4>
+        	<p>A command suffixed with & should be run in the background. (i.e. The shell should be ready to take the next command before the given command has finished running)</p>
+        	<h4 id = "ctrlc">Ignore Ctrl+C</h4>
+        	<p>Usually when we do *Ctrl+C*, the current running program will exit. However, we want the shell to ignore the *Ctrl+C signal*. (i.e. shell will not exit when a *Ctrl+C* signal comes).</p>
+        </ul>
+      <h2>Grading</h2>
+      <a href="https://courses.engr.illinois.edu/cs241/#/overview#integrity">These are the Academic Integrity rules, shared between all MPs in CS 241. Please read them; they're for your own benefit.</a>
+      <p>Here's the grading breakdown:</p>
+      <ul>
+      	<li><strong>25%</strong>: Part 1</li>
+      	<li><strong>75%</strong>: Part 2</li>
+      </ul>
+      <h2>Feedback</h2>
+      <p>
+        We want to keep an open feedback loop, and
+        <a href="https://docs.google.com/forms/d/14Jmo_0DLVgcp6MYyuCYBjcKch6uX2-uXyoGxtqLVdXA/viewform?usp=send_form">
+          this is our way of listening to and incorporating your feedback.
+        </a>
+      </p>
+      <p>
+        <strong>Please include what we do well and what we can improve on (pluses and deltas).</strong>
+        Deltas aren't negatives--they just tell us where we can focus our attention next to give you the best experience as a student.
+      </p>
+			<p>We hope you learn a lot with this MP!</p>
+    </div>
+  </main>
+</div>
+<script src="../../material.min.js"></script>
+  </body>
+</html>
